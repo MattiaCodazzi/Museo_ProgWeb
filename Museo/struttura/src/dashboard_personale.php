@@ -18,7 +18,8 @@ if (!isset($_SESSION["username"])) {
 <body>
 
 <header>
-    <h1>Benvenuto, <?php echo $_SESSION["nome"]; ?> (<?php echo $_SESSION["ruolo"]; ?> ) (<a href="logout.php">Logout</a>) </h1>
+    <h1>Benvenuto, <?php echo $_SESSION["nome"]; ?> (<?php echo $_SESSION["ruolo"]; ?>) </h1> 
+    <a href="logout.php" class="logout-absolute">Logout</a>
     <nav>
     <a href="../public/personale/opere.html">Opere</a>
     <a href="../public/personale/autori.html">Autori</a>

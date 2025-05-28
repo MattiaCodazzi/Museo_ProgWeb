@@ -1,4 +1,5 @@
-/* Reset & base */
+
+/* === RESET & BASE === */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -6,90 +7,151 @@
 }
 
 body {
+  background: url('../immagini/opera_in_evidenza.jpg') no-repeat center center fixed;
+  background-size: cover;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
   background-color: #fff4e6;
-  color: #333;
+  color: #fff;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  display: flex;
 }
 
+
+/* === HEADER === */
 header {
-  background-color: #005b99;
-  color: white;
-  padding: 1rem;
+  background-color: hsl(314, 100%, 95%);
+  color: #fff;
   text-align: center;
-  z-index: 2;
+  padding: 2rem 1rem;
+  z-index: 1000;
   position: relative;
 }
 
 header h1 {
-  font-size: 2rem;
-  margin-top: 1rem;
-  color: white;
-  text-align: center;
+  font-size: 2.4rem;
+  font-weight: bold;
+  color:#7d7878;
+  margin: 0;
 }
 
 nav {
+  background-color: hsl(314, 100%, 95%);     /* colore coerente con header */
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-  background-color: #005b99;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  z-index: 2;
-  position: relative;
-  min-height: 3rem; /* Forza uno spazio visibile */
+  gap: 2rem;
+  padding: 1rem 0;
 }
 
 nav a {
-  color: white;
+  color: #7d7878;
   text-decoration: none;
   font-weight: bold;
+  font-size: 1rem;
   padding: 0.5rem 1rem;
-  border-radius: 4px;
   transition: background-color 0.3s ease;
-  background-color: #006fb9;
+  border-radius: 4px;
 }
 
 nav a:hover {
-  background-color: #004877;
+  background-color:#ffa3d5;
 }
 
+
+
+/* === INFO MUSEO AFFIANCATO A LOGIN === */
 main {
   display: flex;
   flex-direction: row;
+  justify-content: flex-start;
+  gap: 4rem;
+  padding: 2rem 1rem;
+  width: 100%;
+  align-items: flex-start;
+}
+
+.login-wrapper {
+  display: block;
+  width: auto;
+}
+
+.info-wrapper {
+  flex: 1;
+  text-align: center;
+}
+
+.info-section {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.info-boxes {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
   flex-wrap: wrap;
-  gap: 1rem;
-  flex: 1;
-  padding: 1rem;
-  z-index: 1;
+  margin-bottom: 2rem;
 }
 
-.sidebar {
-  flex: 0 0 250px;
-  background-color: #e0f0ff;
-  padding: 1rem;
+.form-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.form-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  width: 300px;
+}
+
+.login-section {
+  width: 320px;
+  margin-left: 100px;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.accesso-box {
+  margin-bottom: 2rem;
+}
+
+
+
+.info-box {
+  background: #7d7878;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 0 8px #fff;
+  width: 180px;
+}
+
+.emoji {
+  font-size: 2rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.frase-dinamica {
+  font-style: italic;
+  color: hsl(0, 0%, 100%);
+  margin-bottom: 2rem;
+  font-size: 1.2rem;
+}
+
+.immagine-opera img {
+  max-width: 100%;
   border-radius: 8px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
 }
 
-.content {
-  flex: 1;
-  background-color: white;
-  padding: 1rem;
-  border-radius: 8px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
-}
 
-h1, h2 {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  color: #005b99;
-}
-
+/* === FORM === */
 form label {
   display: block;
   margin-top: 1rem;
@@ -99,15 +161,15 @@ form label {
 input, select, button {
   width: 100%;
   padding: 0.5rem;
-  margin-top: 0.25rem;
+  margin-bottom: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 1rem;
 }
 
 button {
-  background-color: #005b99;
-  color: white;
+  background-color: hsl(314, 100%, 95%);
+  color: #7d7878;
   border: none;
   margin-top: 1rem;
   cursor: pointer;
@@ -115,79 +177,89 @@ button {
 }
 
 button:hover {
-  background-color: #004877;
+  background-color: #ffa3d5;
 }
 
-#tabella-risultati {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 1rem;
+footer {
+  margin-top: auto;
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
 }
 
-#tabella-risultati th,
-#tabella-risultati td {
-  padding: 0.75rem;
-  border: 1px solid #ccc;
-  text-align: left;
-}
-
-#tabella-risultati tr:hover {
-  background-color: #eef;
-}
-
-#messaggio-eliminazione, #messaggio-modifica {
-  margin-top: 1rem;
+.messaggio {
+  max-width: 300px;
+  padding: 1rem;
+  border-radius: 6px;
   font-weight: bold;
+  font-size: 0.95rem;
+  box-shadow: 0 0 6px rgba(0,0,0,0.1);
 }
 
-#messaggio-eliminazione p {
-  padding: 0.5rem;
+.messaggio.errore {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeeba;
+}
+
+.messaggio.errore::before {
+  content: "⚠️ ";
+  margin-right: 0.3rem;
+}
+
+.messaggio.successo {
+  background-color: #e6ffea;
+  color: #2a6c3f;
+  border: 1px solid #7ed6a0;
+}
+
+.errore-popup {
+  background-color: #fff3cd;
+  color: #856404;
+  border-left: 5px solid #ffc107;
+  padding: 0.8rem 1rem;
+  margin-top: 1rem;
   border-radius: 4px;
+  font-size: 0.95rem;
+  max-width: 300px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
 }
 
-#messaggio-eliminazione p[style*="green"] {
-  background-color: #d0f0d0;
-  color: #235723;
+.logout-absolute {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #d9534f;
+  color: white;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  border-radius: 5px;
+  z-index: 999;
 }
 
-#messaggio-eliminazione p[style*="red"] {
-  background-color: #f8d0d0;
-  color: #992222;
+.logout-absolute:hover {
+  background-color: #c9302c;
 }
 
-.risultati-e-form {
-  display: flex;
-  gap: 2rem;
-  flex-wrap: wrap;
-  align-items: flex-start;
-}
 
-.risultati-e-form > div {
-  flex: 1;
-  min-width: 300px;
-}
 
+
+/* === RESPONSIVE === */
 @media screen and (max-width: 768px) {
   main {
     flex-direction: column;
+    padding: 1rem;
   }
-  .sidebar, .content {
-    width: 100%;
+
+  .login-section {
+    align-items: left;
+    text-align:left;
+  }
+
+  .info-boxes {
+    justify-content: center;
   }
 }
 
-.filter-group {
-  margin-bottom: 1rem;
-}
 
-label {
-  display: block;
-  margin-bottom: 0.25rem;
-}
-
-input, select, button {
-  width: 100%;
-  padding: 0.5rem;
-  margin-bottom: 0.5rem;
-}
 

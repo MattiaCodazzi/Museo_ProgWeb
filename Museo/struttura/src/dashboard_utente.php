@@ -16,9 +16,9 @@ if (!isset($_SESSION["username"])) {
 <body>
 
 <header>
-    <h1>Benvenuto, <?php echo htmlspecialchars($_SESSION["nome"]); ?>! <a href="logout.php">Logout</a></h1>
+    <h1>Benvenuto, <?php echo htmlspecialchars($_SESSION["nome"]); ?></h1> 
+    <a href="logout.php" class="logout-absolute">Logout</a>
     <nav>
-    <a href="dashboard_utente.php" class="attivo">Home</a>
     <a href="../public/utente/opere_utente.html">Opere</a>
     <a href="../public/utente/autori_utente.html">Autori</a>
     <a href="../public/utente/sale_utente.html">Sale</a>

@@ -8,90 +8,115 @@
 </head>
 <body>
 
-    <header>
-        <h1>Museo</h1>
-    </header>
+<header>
+    <h1>Museo</h1>
+</header>
 
-    <main class="container">
-        <div class="blocco-accesso">
+<main>
+
+    <div class="login-wrapper">
+        <div class="login-section">
             <h2>Benvenuto nel Museo</h2>
-            <p>Scegli come accedere al sistema</p>
 
-            <div class="opzioni-accesso">
-                <!-- Login UTENTE -->
-                <div class="accesso-box">
-                    <h3>Utente</h3>
-                    <a href="../src/registrazione_utente.php" class="btn">Registrati</a>
-                    <form id="formLoginUtente">
-                        <input type="text" name="username" placeholder="Username" required><br><br>
-                        <input type="password" name="password" placeholder="Password" required><br><br>
-                        <input type="submit" value="Login" class="btn">
-                    </form>
-                    <p id="messaggioLoginUtente" style="color:red;"></p>
-                </div>
+            <div class="accesso-box">
+                <h3>Utente</h3>
+                <button onclick="window.location.href='../src/registrazione_utente.php'" class="btn">Registrati</button>
+            </div>
 
-                <!-- Login PERSONALE -->
-                <div class="accesso-box">
-                    <h3>Login Personale Museo</h3>
-                    <form id="formLoginPersonale">
-                        <input type="text" name="username" placeholder="Username" required><br><br>
-                        <input type="password" name="password" placeholder="Password" required><br><br>
-                        <input type="submit" value="Login" class="btn">
-                    </form>
-                    <p id="messaggioLogin" style="color:red;"></p>
-                </div>
+            <div class="accesso-box">
+                <h4>Login Utente</h4>
+                <form id="formLoginUtente">
+                    <input type="text" name="username" placeholder="Username" required><br><br>
+                    <input type="password" name="password" placeholder="Password" required><br><br>
+                    <button type="submit" class="btn">Login</button>
+					<p id="messaggioLoginUtente" class="errore-popup" style="display: none;"></p>
+
+
+                </form>
+                
+            </div>
+
+            <div class="accesso-box">
+                <h4>Login Personale Museo</h4>
+                <form id="formLoginPersonale">
+                    <input type="text" name="username" placeholder="Username" required><br><br>
+                    <input type="password" name="password" placeholder="Password" required><br><br>
+                    <button type="submit" class="btn">Login</button>
+					<p id="messaggioLogin" class="errore-popup" style="display: none;"></p>
+
+
+                </form>
+                
             </div>
         </div>
-    </main>
+    </div>
 
-
-    <!-- SCRIPT LOGIN PERSONALE -->
-    <script>
-        $("#formLoginPersonale").submit(function(e) {
-            e.preventDefault();
-            $.ajax({
-                url: "../src/login_personale.php",
-                type: "POST",
-                data: $(this).serialize(),
-                success: function(risposta) {
-                    if (risposta.trim() === "OK") {
-                        window.location.href = "../src/dashboard_personale.php";
-                    } else {
-                        $("#messaggioLogin").text(risposta);
-                    }
-                }
-            });
-        });
-    </script>
-
-    <!-- SCRIPT LOGIN UTENTE -->
-    <script>
-        $("#formLoginUtente").submit(function(e) {
-            e.preventDefault();
-            $.ajax({
-                url: "../src/login_utente.php",
-                type: "POST",
-                data: $(this).serialize(),
-                success: function(risposta) {
-                    if (risposta.trim() === "OK") {
-                        window.location.href = "../src/dashboard_utente.php";
-                    } else {
-                        $("#messaggioLoginUtente").text(risposta);
-                    }
-                }
-            });
-        });
-    </script>
-
+    <div class="info-wrapper">
+        <div class="info-section">
+            <h2>Il Museo in breve</h2>
+            <div class="info-boxes">
+                <div class="info-box"><span class="emoji">👁</span><h3>Visite</h3><p>+10.000 all'anno</p></div>
+                <div class="info-box"><span class="emoji">🖼</span><h3>Opere</h3><p>+1000 esposte</p></div>
+                <div class="info-box"><span class="emoji">✒</span><h3>Autori</h3><p>+80 catalogati</p></div>
             </div>
-        </div>
-    </main>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 Museo Virtuale. Tutti i diritti riservati.</p>
-    </footer>
+            <div class="frase-dinamica" id="fraseMuseo"></div>
+
+            
+        </div>
+    </div>
+
+</main>
+
+<footer>
+    <p>&copy; 2025 Museo Virtuale. Tutti i diritti riservati.</p>
+</footer>
+
+<script>
+    $("#formLoginPersonale").submit(function(e) {
+        e.preventDefault();
+        $.ajax({
+            url: "../src/login_personale.php",
+            type: "POST",
+            data: $(this).serialize(),
+            success: function(risposta) {
+                if (risposta.trim() === "OK") {
+                    window.location.href = "../src/dashboard_personale.php";
+                } else {
+                    $("#messaggioLogin").text(risposta).fadeIn();
+                }
+            }
+        });
+    });
+
+    $("#formLoginUtente").submit(function(e) {
+        e.preventDefault();
+        $.ajax({
+            url: "../src/login_utente.php",
+            type: "POST",
+            data: $(this).serialize(),
+            success: function(risposta) {
+                if (risposta.trim() === "OK") {
+                    window.location.href = "../src/dashboard_utente.php";
+                } else {
+                    $("#messaggioLoginUtente").text(risposta).fadeIn();
+                }
+            }
+        });
+    });
+
+    $(document).ready(function() {
+        const frasi = [
+            "L'arte parla dove le parole falliscono.",
+            "Ogni opera è una finestra sul tempo.",
+            "Esplora la storia attraverso la bellezza."
+        ];
+        const casuale = frasi[Math.floor(Math.random() * frasi.length)];
+        $("#fraseMuseo").text(casuale);
+    });
+</script>
 
 </body>
-
 </html>
+
+
