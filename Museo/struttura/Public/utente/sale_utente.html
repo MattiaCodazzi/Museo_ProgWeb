@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Museo - Gestione Opere</title>
-  <link rel="stylesheet" href="style.css">
-
+  <link rel="stylesheet" href="../style.css">
 </head>
 <body>
   <header>
@@ -13,10 +12,11 @@
   </header>
 
   <nav>
-    <a href="opere.html">Opere</a>
-    <a href="autori.html">Autori</a>
-    <a href="sale.html">Sale</a>
-    <a href="temi.html">Temi</a>
+	<a href="../../src/dashboard_utente.php" class="attivo">Home</a>
+    <a href="opere_utente.html">Opere</a>
+    <a href="autori_utente.html">Autori</a>
+    <a href="sale_utente.html">Sale</a>
+    <a href="temi_utente.html">Temi</a>
   </nav>
 
   <main>
@@ -24,10 +24,10 @@
       <h2>Filtro / Ricerca</h2>
       <div class="filter-group">
 
-        <label for="autore">Nome Autore:</label>
-        <input type="text" id="autore" name="autore">
+        <label for="sala">Numero sala:</label>
+        <input type="text" id="sala" name="sala">
 
-        <button type="button" onclick="ricercaOpere()">Cerca</button>
+        <button type="button" onclick="ricercaSala()">Cerca</button>
       </div>
     </aside>
 
@@ -44,7 +44,7 @@
   </footer>
 
   <script>
-    function ricercaOpere() {
+    function ricercaSala() {
       // Integrazione futura con AJAX + PHP
       const titolo = document.getElementById('titolo').value;
       const autore = document.getElementById('autore').value;

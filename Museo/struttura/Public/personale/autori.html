@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Museo - Gestione Opere</title>
+  <link rel="stylesheet" href="../style.css">
+
+</head>
+<body>
+  <header>
+    <h1>Gestione Museo</h1>
+  </header>
+
+  <nav>
+	<a href="../../src/dashboard_personale.php" class="attivo">Home</a>
+    <a href="opere.html">Opere</a>
+    <a href="autori.html">Autori</a>
+    <a href="sale.html">Sale</a>
+    <a href="temi.html">Temi</a>
+  </nav>
+
+  <main>
+    <aside class="sidebar">
+      <h2>Filtro / Ricerca</h2>
+      <div class="filter-group">
+
+        <label for="autore">Nome Autore:</label>
+        <input type="text" id="autore" name="autore">
+
+        <button type="button" onclick="ricercaOpere()">Cerca</button>
+      </div>
+    </aside>
+
+    <section class="content">
+      <h2>Risultati</h2>
+      <div id="risultati">
+        <!-- I risultati della ricerca CRUD appariranno qui -->
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Museo Web - Università degli Studi di Bergamo</p>
+  </footer>
+
+  <script>
+    function ricercaOpere() {
+      // Integrazione futura con AJAX + PHP
+      const titolo = document.getElementById('titolo').value;
+      const autore = document.getElementById('autore').value;
+      document.getElementById('risultati').innerHTML =
+        `<p>Hai cercato: <strong>${titolo}</strong> di <strong>${autore}</strong></p>`;
+    }
+  </script>
+</body>
+</html>

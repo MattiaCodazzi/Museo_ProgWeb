@@ -1,59 +1,96 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Museo - Gestione Opere</title>
-  <link rel="stylesheet" href="style.css">
-
+    <meta charset="UTF-8">
+    <title>Homepage Museo</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-  <header>
-    <h1>Gestione Museo</h1>
-  </header>
 
-  <nav>
-    <a href="opere.html">Opere</a>
-    <a href="autori.html">Autori</a>
-    <a href="sale.html">Sale</a>
-    <a href="temi.html">Temi</a>
-  </nav>
+    <header>
+        <h1>Museo</h1>
+    </header>
 
-  <main>
-    <aside class="sidebar">
-      <h2>Filtro / Ricerca</h2>
-      <div class="filter-group">
-        <label for="titolo">Titolo opera:</label>
-        <input type="text" id="titolo" name="titolo">
+    <main class="container">
+        <div class="blocco-accesso">
+            <h2>Benvenuto nel Museo</h2>
+            <p>Scegli come accedere al sistema</p>
 
-        <label for="autore">Autore:</label>
-        <input type="text" id="autore" name="autore">
+            <div class="opzioni-accesso">
+                <!-- Login UTENTE -->
+                <div class="accesso-box">
+                    <h3>Utente</h3>
+                    <a href="../src/registrazione_utente.php" class="btn">Registrati</a>
+                    <form id="formLoginUtente">
+                        <input type="text" name="username" placeholder="Username" required><br><br>
+                        <input type="password" name="password" placeholder="Password" required><br><br>
+                        <input type="submit" value="Login" class="btn">
+                    </form>
+                    <p id="messaggioLoginUtente" style="color:red;"></p>
+                </div>
 
-        <button type="button" onclick="ricercaOpere()">Cerca</button>
-      </div>
-    </aside>
+                <!-- Login PERSONALE -->
+                <div class="accesso-box">
+                    <h3>Login Personale Museo</h3>
+                    <form id="formLoginPersonale">
+                        <input type="text" name="username" placeholder="Username" required><br><br>
+                        <input type="password" name="password" placeholder="Password" required><br><br>
+                        <input type="submit" value="Login" class="btn">
+                    </form>
+                    <p id="messaggioLogin" style="color:red;"></p>
+                </div>
+            </div>
+        </div>
+    </main>
 
-    <section class="content">
-      <h2>Risultati</h2>
-      <div id="risultati">
-        <!-- I risultati della ricerca CRUD appariranno qui -->
-      </div>
-    </section>
-  </main>
 
-  <footer>
-    <p>&copy; 2025 Museo Web - Università degli Studi di Bergamo</p>
-  </footer>
+    <!-- SCRIPT LOGIN PERSONALE -->
+    <script>
+        $("#formLoginPersonale").submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: "../src/login_personale.php",
+                type: "POST",
+                data: $(this).serialize(),
+                success: function(risposta) {
+                    if (risposta.trim() === "OK") {
+                        window.location.href = "../src/dashboard_personale.php";
+                    } else {
+                        $("#messaggioLogin").text(risposta);
+                    }
+                }
+            });
+        });
+    </script>
 
-  <script>
-    function ricercaOpere() {
-      // Integrazione futura con AJAX + PHP
-      const titolo = document.getElementById('titolo').value;
-      const autore = document.getElementById('autore').value;
-      document.getElementById('risultati').innerHTML =
-        `<p>Hai cercato: <strong>${titolo}</strong> di <strong>${autore}</strong></p>`;
-    }
-  </script>
+    <!-- SCRIPT LOGIN UTENTE -->
+    <script>
+        $("#formLoginUtente").submit(function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: "../src/login_utente.php",
+                type: "POST",
+                data: $(this).serialize(),
+                success: function(risposta) {
+                    if (risposta.trim() === "OK") {
+                        window.location.href = "../src/dashboard_utente.php";
+                    } else {
+                        $("#messaggioLoginUtente").text(risposta);
+                    }
+                }
+            });
+        });
+    </script>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Museo Virtuale. Tutti i diritti riservati.</p>
+    </footer>
+
 </body>
 </html>
-

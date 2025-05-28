@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Modifica Opere</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../style.css">
 </head>
 <body>
   <header>
@@ -12,6 +12,7 @@
   </header>
   
   <nav>
+	<a href="../../src/dashboard_personale.php" class="attivo">Home</a>
     <a href="opere.html">Opere</a>
     <a href="autori.html">Autori</a>
     <a href="sale.html">Sale</a>
@@ -81,14 +82,14 @@
   <script>
     $(document).ready(function () {
       // Popola select autori
-      $.getJSON("../src/get_autori.php", function (data) {
+      $.getJSON("../../src/get_autori.php", function (data) {
         data.forEach(function (autore) {
           $('#autoreId').append(`<option value="${autore.codice}">${autore.nome} ${autore.cognome}</option>`);
         });
       });
 
       // Popola select sale
-      $.getJSON("../src/get_sale.php", function (data) {
+      $.getJSON("../../src/get_sale.php", function (data) {
         data.forEach(function (sala) {
           $('#salaId').append(`<option value="${sala.numero}">${sala.nome}</option>`);
         });
@@ -98,7 +99,7 @@
       $('#filtro-opere').on('submit', function (e) {
         e.preventDefault();
         $.ajax({
-          url: '../src/cerca_opere.php',
+          url: '../../src/cerca_opere.php',
           type: 'POST',
           dataType: 'json',
           data: {
@@ -139,7 +140,7 @@
     });
 
     function caricaOpera(codice) {
-      $.getJSON(`../src/get_opera.php?codice=${codice}`, function (opera) {
+      $.getJSON(`../../src/get_opera.php?codice=${codice}`, function (opera) {
         console.log("🧾 Dati ricevuti per modifica:", opera);
 
         const titolo = typeof opera.titolo === 'string' ? opera.titolo : '';
@@ -169,7 +170,7 @@
         $('#modifica-form').on('submit', function (e) {
           e.preventDefault();
           $.ajax({
-            url: '../src/salva_modifica.php',
+            url: '../../src/salva_modifica.php',
             type: 'POST',
             data: $(this).serialize(),
             success: function (response) {

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gestione Opere - Elimina</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../style.css">
 </head>
 <body>
   <header>
@@ -12,7 +12,8 @@
   </header>
 
   <nav>
-    <a href="opere.html">Opere</a>
+	<a href="../../src/dashboard_personale.php" class="attivo">Home</a>
+	<a href="opere.html">Opere</a>
     <a href="autori.html">Autori</a>
     <a href="sale.html">Sale</a>
     <a href="temi.html">Temi</a>
@@ -75,13 +76,13 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     $(document).ready(function () {
-      $.getJSON("../src/get_autori.php", function (data) {
+      $.getJSON("../../src/get_autori.php", function (data) {
         data.forEach(function (autore) {
           $('#autoreId').append(`<option value="${autore.codice}">${autore.nome} ${autore.cognome}</option>`);
         });
       });
 
-      $.getJSON("../src/get_sale.php", function (data) {
+      $.getJSON("../../src/get_sale.php", function (data) {
         data.forEach(function (sala) {
           $('#salaId').append(`<option value="${sala.numero}">${sala.nome}</option>`);
         });
@@ -90,7 +91,7 @@
       $('#filtro-opere').on('submit', function (e) {
         e.preventDefault();
         $.ajax({
-          url: '../src/cerca_opere.php',
+          url: '../../src/cerca_opere.php',
           type: 'POST',
           dataType: 'json',
           data: {
@@ -152,7 +153,7 @@
   codici.forEach(c => formData.append('codici[]', c));
 
   $.ajax({
-    url: '../src/elimina_opere.php',
+    url: '../../src/elimina_opere.php',
     type: 'POST',
     data: formData,
     processData: false,
