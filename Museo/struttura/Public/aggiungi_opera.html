@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Museo - Gestione Opere</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Gestione Museo</h1>
+  </header>
+
+  <nav>
+    <a href="opere.html">Opere</a>
+    <a href="autori.html">Autori</a>
+    <a href="sale.html">Sale</a>
+    <a href="temi.html">Temi</a>
+  </nav>
+
+  <main>
+    <aside class="sidebar">
+      <h2>Filtro / Ricerca</h2>
+      <div class="filter-group">
+        <h3>Aggiungi nuova opera</h3>
+        <form id="form-opera">
+          <label for="autoreId">Autore</label>
+          <select id="autoreId" required></select>
+          
+          <label for="titolo">Titolo</label>
+          <input type="text" id="titolo" name="titolo" required>
+          
+          <label for="annoRealizzazione">Anno di realizzazione</label>
+          <input type="number" id="annoRealizzazione" name="annoRealizzazione" required>
+
+          <label for="annoAcquisto">Anno di acquisto</label>
+          <input type="number" id="annoAcquisto" name="annoAcquisto" required>
+          
+          <label for="tipo">Tipo</label>
+          <select id="tipo" name="tipo" required>
+            <option value="Quadro">Quadro</option>
+            <option value="Scultura">Scultura</option>
+          </select>
+          
+          <label for="espostaInSalaId">Sala (opzionale)</label>
+          <select id="espostaInSalaId" name="sala">
+            <option value="">-- Nessuna --</option>
+          </select>
+
+          <button type="submit">Inserisci</button>
+        </form>
+
+        <div id="messaggio-inserimento"></div>
+      </div>
+    </aside>
+
+    <section class="content">
+      <h2>Risultati</h2>
+      <div id="risultati">
+        <!-- I risultati CRUD appariranno qui -->
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Museo Web - Università degli Studi di Bergamo</p>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      // Submit del form
+      $("#form-opera").on("submit", function(e) {
+        e.preventDefault();
+        $.ajax({
+          url: "../src/inserisci_opera.php",
+          type: "POST",
+          data: {
+            autore: $("#autoreId").val(),
+            titolo: $("#titolo").val(),
+            annoRealizzazione: $("#annoRealizzazione").val(),
+            annoAcquisto: $("#annoAcquisto").val(),
+            tipo: $("#tipo").val(),
+            sala: $("#espostaInSalaId").val()
+          },
+          success: function(response) {
+            $("#messaggio-inserimento").html(`<p style="color:green;">${response}</p>`);
+            $("#form-opera")[0].reset();
+          },
+          error: function(xhr) {
+            $("#messaggio-inserimento").html(`<p style="color:red;">Errore: ${xhr.responseText}</p>`);
+          }
+        });
+      });
+
+      // Popola autori
+      $.getJSON("../src/get_autori.php", function (data) {
+        data.forEach(function (autore) {
+          $("#autoreId").append(`<option value="${autore.codice}">${autore.cognome} ${autore.nome}</option>`);
+        });
+      });
+
+      // Popola sale
+      $.getJSON("../src/get_sale.php", function (data) {
+        data.forEach(function (sala) {
+          $("#espostaInSalaId").append(`<option value="${sala.numero}">${sala.nome}</option>`);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
+

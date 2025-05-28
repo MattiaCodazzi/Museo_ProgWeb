@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modifica Opere</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Gestione Museo - Modifica Opere</h1>
+  </header>
+  
+  <nav>
+    <a href="opere.html">Opere</a>
+    <a href="autori.html">Autori</a>
+    <a href="sale.html">Sale</a>
+    <a href="temi.html">Temi</a>
+  </nav>
+
+  <main>
+    <aside class="sidebar">
+      <h2>Filtri di ricerca</h2>
+      <form id="filtro-opere">
+        <label for="titolo">Titolo</label>
+        <input type="text" id="titolo" name="titolo">
+
+        <label for="autoreId">Autore</label>
+        <select id="autoreId" name="autoreId">
+          <option value="">-- Seleziona autore --</option>
+        </select>
+
+        <label for="tipo">Tipo</label>
+        <select id="tipo" name="tipo">
+          <option value="">-- Qualsiasi --</option>
+          <option value="Quadro">Quadro</option>
+          <option value="Scultura">Scultura</option>
+        </select>
+
+        <label for="salaId">Sala</label>
+        <select id="salaId" name="salaId">
+          <option value="">-- Qualsiasi --</option>
+        </select>
+
+        <button type="submit">Cerca</button>
+      </form>
+    </aside>
+
+    <section class="content">
+      <h2>Risultati</h2>
+      <div class="risultati-e-form">
+        <div>
+          <table id="tabella-risultati" border="1">
+            <thead>
+              <tr>
+                <th>Titolo</th>
+                <th>Autore</th>
+                <th>Tipo</th>
+                <th>Anno Realizzazione</th>
+                <th>Anno Acquisto</th>
+                <th>Sala</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div>
+          <h2>Modifica Opera</h2>
+          <div id="formModifica"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Museo Web - Università degli Studi di Bergamo</p>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      // Popola select autori
+      $.getJSON("../src/get_autori.php", function (data) {
+        data.forEach(function (autore) {
+          $('#autoreId').append(`<option value="${autore.codice}">${autore.nome} ${autore.cognome}</option>`);
+        });
+      });
+
+      // Popola select sale
+      $.getJSON("../src/get_sale.php", function (data) {
+        data.forEach(function (sala) {
+          $('#salaId').append(`<option value="${sala.numero}">${sala.nome}</option>`);
+        });
+      });
+
+      // Invio ricerca
+      $('#filtro-opere').on('submit', function (e) {
+        e.preventDefault();
+        $.ajax({
+          url: '../src/cerca_opere.php',
+          type: 'POST',
+          dataType: 'json',
+          data: {
+            titolo: $('#titolo').val(),
+            autoreId: $('#autoreId').val(),
+            tipo: $('#tipo').val(),
+            salaId: $('#salaId').val()
+          },
+          success: function (opere) {
+            const tbody = $('#tabella-risultati tbody');
+            tbody.empty();
+            if (opere.length === 0) {
+              tbody.append('<tr><td colspan="6">Nessun risultato trovato.</td></tr>');
+              return;
+            }
+            opere.forEach(function (opera) {
+              const row = $(`
+                <tr data-id="${opera.codice}">
+                  <td>${opera.titolo}</td>
+                  <td>${opera.autore}</td>
+                  <td>${opera.tipo}</td>
+                  <td>${opera.annoRealizzazione}</td>
+                  <td>${opera.annoAcquisto}</td>
+                  <td>${opera.sala}</td>
+                </tr>
+              `);
+              row.on('click', function () {
+                caricaOpera(opera.codice);
+              });
+              tbody.append(row);
+            });
+          },
+          error: function () {
+            alert("Errore nella ricerca opere.");
+          }
+        });
+      });
+    });
+
+    function caricaOpera(codice) {
+      $.getJSON(`../src/get_opera.php?codice=${codice}`, function (opera) {
+        console.log("🧾 Dati ricevuti per modifica:", opera);
+
+        const titolo = typeof opera.titolo === 'string' ? opera.titolo : '';
+        const realizzazione = Number.isInteger(opera.annoRealizzazione) ? opera.annoRealizzazione : '';
+        const acquisto = Number.isInteger(opera.annoAcquisto) ? opera.annoAcquisto : '';
+        const tipo = opera.tipo ?? '';
+        const salaVal = (opera.espostaInSala !== undefined && opera.espostaInSala !== null) ? opera.espostaInSala : '';
+
+        $('#formModifica').html(`
+          <form id="modifica-form">
+            <input type="hidden" name="codice" value="${opera.codice}">
+            <label>Titolo: <input name="titolo" value="${titolo}" required></label>
+            <label>Anno Realizzazione: <input name="annoRealizzazione" type="number" value="${realizzazione}" required></label>
+            <label>Anno Acquisto: <input name="annoAcquisto" type="number" value="${acquisto}" required></label>
+            <label>Tipo:
+              <select name="tipo" required>
+                <option value="Quadro" ${tipo === "Quadro" ? "selected" : ""}>Quadro</option>
+                <option value="Scultura" ${tipo === "Scultura" ? "selected" : ""}>Scultura</option>
+              </select>
+            </label>
+            <label>Sala Esposta: <input name="espostaInSala" type="number" value="${salaVal}"></label>
+            <button type="submit">Salva Modifiche</button>
+          </form>
+          <div id="messaggio-modifica"></div>
+        `);
+
+        $('#modifica-form').on('submit', function (e) {
+          e.preventDefault();
+          $.ajax({
+            url: '../src/salva_modifica.php',
+            type: 'POST',
+            data: $(this).serialize(),
+            success: function (response) {
+              $('#messaggio-modifica').html(`<p style="color: green;">${response}</p>`);
+              $('#filtro-opere').submit();
+            },
+            error: function (xhr) {
+              $('#messaggio-modifica').html(`<p style="color: red;">Errore: ${xhr.responseText}</p>`);
+            }
+          });
+        });
+      });
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+
+	 
+	 

@@ -1,0 +1,34 @@
+# 🔥 FILE DI SISTEMA E IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# 💾 FILE TEMPORANEI
+*.log
+*.tmp
+*.bak
+*.swp
+*.~*
+
+# 🧪 BACKUP AUTOMATICI
+*.old
+*.orig
+
+# 🧰 XAMPP (se lavori in locale)
+xampp/
+htdocs/
+
+# 📦 COMPOSER (se non usi più PHP esterno)
+vendor/
+composer.lock
+composer.json
+
+# ⚠️ FILE DI CREDENZIALI (se li hai)
+.env
+*.env
+
+# 🚫 DATABASE LOCALI
+*.sqlite3

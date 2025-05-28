@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestione Opere - Elimina</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Gestione Museo</h1>
+  </header>
+
+  <nav>
+    <a href="opere.html">Opere</a>
+    <a href="autori.html">Autori</a>
+    <a href="sale.html">Sale</a>
+    <a href="temi.html">Temi</a>
+  </nav>
+
+  <main>
+    <aside class="sidebar">
+      <h2>Filtri di ricerca</h2>
+      <form id="filtro-opere">
+        <label for="titolo">Titolo</label>
+        <input type="text" id="titolo" name="titolo">
+
+        <label for="autoreId">Autore</label>
+        <select id="autoreId" name="autoreId">
+          <option value="">-- Seleziona autore --</option>
+        </select>
+
+        <label for="tipo">Tipo</label>
+        <select id="tipo" name="tipo">
+          <option value="">-- Qualsiasi --</option>
+          <option value="Quadro">Quadro</option>
+          <option value="Scultura">Scultura</option>
+        </select>
+
+        <label for="salaId">Sala</label>
+        <select id="salaId" name="salaId">
+          <option value="">-- Qualsiasi --</option>
+        </select>
+
+        <button type="submit">Cerca</button>
+      </form>
+      <div id="messaggio-inserimento"></div>
+    </aside>
+
+    <section class="content">
+      <h3>Risultati</h3>
+      <button id="elimina-selezionate">Elimina selezionate</button>
+      <table id="tabella-risultati" border="1">
+        <thead>
+          <tr>
+            <th><input type="checkbox" id="seleziona-tutte"></th>
+            <th>Titolo</th>
+            <th>Autore</th>
+            <th>Tipo</th>
+            <th>Anno Realizzazione</th>
+            <th>Anno Acquisto</th>
+            <th>Sala</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div id="messaggio-eliminazione"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Museo Web - Università degli Studi di Bergamo</p>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $.getJSON("../src/get_autori.php", function (data) {
+        data.forEach(function (autore) {
+          $('#autoreId').append(`<option value="${autore.codice}">${autore.nome} ${autore.cognome}</option>`);
+        });
+      });
+
+      $.getJSON("../src/get_sale.php", function (data) {
+        data.forEach(function (sala) {
+          $('#salaId').append(`<option value="${sala.numero}">${sala.nome}</option>`);
+        });
+      });
+
+      $('#filtro-opere').on('submit', function (e) {
+        e.preventDefault();
+        $.ajax({
+          url: '../src/cerca_opere.php',
+          type: 'POST',
+          dataType: 'json',
+          data: {
+            titolo: $('#titolo').val(),
+            autoreId: $('#autoreId').val(),
+            tipo: $('#tipo').val(),
+            salaId: $('#salaId').val()
+          },
+          success: function (opere) {
+            const tbody = $('#tabella-risultati tbody');
+            tbody.empty();
+            if (opere.length === 0) {
+              tbody.append('<tr><td colspan="7">Nessun risultato trovato.</td></tr>');
+              return;
+            }
+            opere.forEach(function (opera) {
+              const row = $(
+                `<tr data-id="${opera.codice}">
+                  <td><input type="checkbox" class="seleziona-opera" value="${opera.codice}"></td>
+                  <td>${opera.titolo}</td>
+                  <td>${opera.autore}</td>
+                  <td>${opera.tipo}</td>
+                  <td>${opera.annoRealizzazione}</td>
+                  <td>${opera.annoAcquisto}</td>
+                  <td>${opera.sala}</td>
+                </tr>`
+              );
+              tbody.append(row);
+            });
+          },
+          error: function () {
+            alert("Errore nella ricerca opere.");
+          }
+        });
+      });
+
+      $('#seleziona-tutte').on('change', function () {
+        $('.seleziona-opera').prop('checked', this.checked);
+      });
+
+      $('#elimina-selezionate').on('click', function () {
+  const codici = $('.seleziona-opera:checked').map(function () {
+    return parseInt($(this).val());
+  }).get();
+
+  console.log("Codici selezionati:", codici);
+
+  if (codici.length === 0) {
+    alert("Seleziona almeno un'opera da eliminare.");
+    return;
+  }
+
+  if (!confirm(`Sei sicuro di voler eliminare ${codici.length} opera/e?`)) {
+    console.log("Eliminazione annullata dall'utente.");
+    return false;
+  }
+
+  const formData = new FormData();
+  codici.forEach(c => formData.append('codici[]', c));
+
+  $.ajax({
+    url: '../src/elimina_opere.php',
+    type: 'POST',
+    data: formData,
+    processData: false,
+    contentType: false,
+    success: function (response) {
+      $('#messaggio-eliminazione').html(`<p style="color: green;">${response}</p>`);
+      $('#filtro-opere').submit();
+    },
+    error: function (xhr) {
+      $('#messaggio-eliminazione').html(`<p style="color: red;">Errore: ${xhr.responseText}</p>`);
+    }
+  });
+});
+
+
+    });
+  </script>
+</body>
+</html>
+
+

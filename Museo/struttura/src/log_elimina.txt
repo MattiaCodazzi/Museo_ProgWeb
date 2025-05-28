@@ -1,0 +1,65 @@
+21:27:25 POST: Array
+(
+    [0] => 1004
+)
+
+21:27:25 Codici puliti: 1004
+21:27:25 SQL: DELETE FROM Opera WHERE codice IN (?)
+21:27:25 Bind types: i
+21:27:25 Bind values: 1004
+21:27:25 Query eseguita. Affected rows: 1
+21:31:43 POST: Array
+(
+    [0] => 1004
+)
+
+21:31:43 Codici puliti: 1004
+21:31:43 SQL: DELETE FROM Opera WHERE codice IN (?)
+21:31:43 Bind types: i
+21:31:43 Bind values: 1004
+21:31:43 Query eseguita. Affected rows: 1
+21:42:18 POST: Array
+(
+    [0] => 1004
+)
+
+21:42:18 Codici puliti: 1004
+21:42:18 SQL: DELETE FROM Opera WHERE codice IN (?)
+21:42:18 Bind types: i
+21:42:18 Bind values: 1004
+21:42:18 Query eseguita. Affected rows: 1
+21:48:01 POST: Array
+(
+    [0] => 1003
+    [1] => 1004
+)
+
+21:48:01 Codici puliti: 1003, 1004
+21:48:01 SQL: DELETE FROM Opera WHERE codice IN (?,?)
+21:48:02 Bind types: ii
+21:48:02 Bind values: 1003, 1004
+21:48:02 Query eseguita. Affected rows: 2
+21:49:14 POST: Array
+(
+    [0] => 1001
+    [1] => 1002
+    [2] => 1003
+    [3] => 1004
+)
+
+21:49:14 Codici puliti: 1001, 1002, 1003, 1004
+21:49:14 SQL: DELETE FROM Opera WHERE codice IN (?,?,?,?)
+21:49:14 Bind types: iiii
+21:49:14 Bind values: 1001, 1002, 1003, 1004
+21:49:14 Query eseguita. Affected rows: 4
+09:57:45 POST: Array
+(
+    [0] => 1001
+    [1] => 1002
+)
+
+09:57:45 Codici puliti: 1001, 1002
+09:57:45 SQL: DELETE FROM Opera WHERE codice IN (?,?)
+09:57:45 Bind types: ii
+09:57:45 Bind values: 1001, 1002
+09:57:45 Query eseguita. Affected rows: 2
