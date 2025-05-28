@@ -1,9 +1,7 @@
-# Museo_ProgWeb
-Repository per progetto univeristario Programmazione Web
+# 🖼️ Museo_ProgWeb
 
-# 🖼️ Museo Web App – Progetto Programmazione Web
-
-Web application per la gestione di opere museali, sviluppata con HTML, CSS, JavaScript (AJAX, jQuery), PHP e MySQL.
+Repository per progetto universitario **Programmazione Web**  
+Web application per la gestione di opere museali, sviluppata con **HTML**, **CSS**, **JavaScript (AJAX, jQuery)**, **PHP** e **MySQL**.
 
 ---
 
@@ -11,59 +9,71 @@ Web application per la gestione di opere museali, sviluppata con HTML, CSS, Java
 
 ### 1. Clona la repository
 ```bash
-git clone https://github.com/tuo-username/nome-repo.git
+git clone https://github.com/tuo-username/Museo_ProgWeb.git
+```
 
-Installa XAMPP
-Scarica XAMPP (inclusi Apache, PHP e MySQL) da:
+### 2. Installa XAMPP
+Scarica **XAMPP** (che include Apache, PHP e MySQL) da:  
 👉 https://www.apachefriends.org/
 
-Avvia Apache e MySQL
-Apri il XAMPP Control Panel
+### 3. Avvia Apache e MySQL
+1. Apri il **XAMPP Control Panel**
+2. Clicca su **"Start"** accanto ad **Apache** e **MySQL**
+3. Entrambi devono diventare **verdi**
 
-Clicca su "Start" accanto ad Apache e MySQL → Devono diventare verdi
+### 4. Crea il database con phpMyAdmin
+1. Apri il browser e vai su: [http://localhost/phpmyadmin](http://localhost/phpmyadmin)
+2. Clicca su **"Nuovo"**
+3. Crea un nuovo database chiamato:
+   ```
+   museo
+   ```
 
-Crea il database con phpMyAdmin
-Vai su http://localhost/phpmyadmin
+### 5. Importa le tabelle e i dati
+1. Seleziona il database `museo` in phpMyAdmin
+2. Clicca su **"Importa"**
+3. Importa i seguenti file **nell’ordine**:
+   - `creazione_tabelle.sql`
+   - `popolamento_museo.sql`
 
-Clicca su "Nuovo" e crea un database chiamato:
-museo
-
-Importa le tabelle e i dati
-Seleziona il database museo in phpMyAdmin
-
-Clicca su "Importa"
-
-Carica e importa nell’ordine:
-
-creazione_tabelle.sql
-popolamento_museo.sql
-
-Sposta il progetto nella cartella corretta
-Copia tutta la cartella del progetto clonata in:
-
+### 6. Sposta il progetto nella cartella corretta
+Copia l'intera cartella del progetto clonata in:
+```
 C:\xampp\htdocs\
+```
 
-Avvia l'app nel browser
-Apri uno di questi indirizzi nel browser:
+### 7. Avvia l'applicazione nel browser
+Apri uno di questi URL nel tuo browser:
+- [http://localhost/museo/main.html](http://localhost/museo/main.html)
+- [http://localhost/museo/aggiungi_opera.html](http://localhost/museo/aggiungi_opera.html)
+- [http://localhost/museo/cerca_opera.html](http://localhost/museo/cerca_opera.html)
 
-http://localhost/museo/main.html
-http://localhost/museo/aggiungi_opera.html
-http://localhost/museo/cerca_opera.html
-(!! non doppio clicco sull'html dalla cartella)
+> ⚠️ **Non aprire i file HTML con doppio clic!**  
+> Devono essere eseguiti attraverso il server Apache (localhost), altrimenti i file PHP non funzioneranno.
 
-erché Apache è necessario per PHP?
-PHP è un linguaggio lato server, il che significa che i file .php devono essere eseguiti da un server web (come Apache). Se provi ad aprire un file .php con doppio clic, il browser non lo interpreta correttamente.
-Apache si occupa di:
-interpretare i file PHP,
-comunicare con il database MySQL,
-restituire al browser l’output HTML.
-Per questo motivo, Apache deve essere sempre attivo durante l’esecuzione dell’app.
-Questo è necessario solo in fase di sviluppo infatti quando il progetto verrà migrato su Altervista che fa da hosting, il server host sarà già dotato di apache e l'utente può ottenere i contenuti semplicemente dal browser
+---
 
-Tecnologie utilizzate
-HTML, CSS
-JavaScript, jQuery, AJAX
-PHP
-MySQL
-XAMPP (Apache + MySQL + PHP)
-phpMyAdmin
+## ❓ Perché Apache è necessario per PHP?
+
+PHP è un linguaggio **lato server**, quindi i file `.php` **non vengono interpretati direttamente dal browser**. Serve un server web — come Apache — che:
+
+- esegue il codice PHP,
+- comunica con il database MySQL,
+- restituisce al browser l’output HTML.
+
+### In fase di sviluppo:
+È necessario tenere **Apache attivo tramite XAMPP**.
+
+### In fase di produzione (es. su Altervista):
+Non è più necessario avviare Apache manualmente perché il server Altervista **include già Apache**, e i file PHP vengono eseguiti automaticamente via browser.
+
+---
+
+## 🧰 Tecnologie utilizzate
+
+- ✅ HTML, CSS
+- ✅ JavaScript, jQuery, AJAX
+- ✅ PHP
+- ✅ MySQL
+- ✅ XAMPP (Apache + MySQL + PHP)
+- ✅ phpMyAdmin
