@@ -1,0 +1,8 @@
+Array
+(
+    [titolo] => 
+    [autoreId] => 
+    [tipo] => 
+    [salaId] => 9
+    [pagina] => 1
+)

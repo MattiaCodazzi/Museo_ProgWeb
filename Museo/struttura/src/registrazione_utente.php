@@ -69,6 +69,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
 
+	<div class="logo-museo">
+		<img src="../icon/logo.png" alt="Logo Museo">
+</div>
+
     <header>
         <h1>Registrazione Nuovo Utente</h1>
     </header>

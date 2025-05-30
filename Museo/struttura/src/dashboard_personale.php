@@ -28,8 +28,35 @@ if (!isset($_SESSION["username"])) {
     </nav>
 </header>
 
-<main class="container">
-    
+<main class="contenuto-dashboard">
+  <section class="introduzione">
+    <h2>Benvenuto nella tua area personale!</h2>
+    <p>Da qui puoi gestire ogni aspetto del museo virtuale.</p>
+    <ul>
+      <li>🖼️ <strong>Gestione opere:</strong> accedi alla sezione <em>Opere</em> per visualizzare, modificare o aggiungere opere d’arte.</li>
+      <li>👤 <strong>Gestione autori:</strong> visualizza e aggiorna le informazioni sugli autori.</li>
+      <li>🏛️ <strong>Gestione sale:</strong> consulta le sale espositive e modificale se necessario.</li>
+      <li>🎨 <strong>Gestione temi:</strong> assegna o modifica i temi delle sale.</li>
+    </ul>
+  </section>
+
+  <section class="guida">
+    <h3>Suggerimenti rapidi</h3>
+    <p>Usa la barra di navigazione in alto per accedere rapidamente alle funzionalità CRUD. Ogni sezione ti consente di:</p>
+    <ul>
+      <li>🔍 Filtrare e cercare informazioni specifiche</li>
+      <li>✏️ Modificare i dati esistenti</li>
+      <li>➕ Aggiungere nuovi elementi</li>
+      <li>🗑️ Eliminare ciò che non è più necessario</li>
+    </ul>
+  </section>
+
+  <section class="citazione">
+    <blockquote>
+      <em>“L’arte scuote dall’anima la polvere accumulata nella vita di tutti i giorni.”</em><br />
+      — Pablo Picasso
+    </blockquote>
+  </section>
 </main>
 
 <footer>

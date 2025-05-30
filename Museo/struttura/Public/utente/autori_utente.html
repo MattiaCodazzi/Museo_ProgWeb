@@ -5,53 +5,141 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Museo - Gestione Opere</title>
   <link rel="stylesheet" href="../style.css">
-
+  <link rel="stylesheet" href="../tabella_opere.css">
 </head>
 <body>
-  <header>
-    <h1>Gestione Museo</h1>
-  </header>
+<div class="logo-museo">
+  <img src="../../icon/logo.png" alt="Logo Museo">
+</div>
+<header>
+  <h1>Gestione Museo</h1>
+</header>
 
-  <nav>
-	<a href="../../src/dashboard_utente.php" class="attivo">Home</a>
-    <a href="opere_utente.html">Opere</a>
-    <a href="autori_utente.html">Autori</a>
-    <a href="sale_utente.html">Sale</a>
-    <a href="temi_utente.html">Temi</a>
-  </nav>
+<nav>
+  <a href="../../src/dashboard_utente.php" class="attivo">Home</a>
+  <a href="opere_utente.html">Opere</a>
+  <a href="autori_utente.html">Autori</a>
+  <a href="sale_utente.html">Sale</a>
+  <a href="temi_utente.html">Temi</a>
+</nav>
 
-  <main>
-    <aside class="sidebar">
-      <h2>Filtro / Ricerca</h2>
-      <div class="filter-group">
+<main>
+  <aside class="sidebar">
+    <h2>Filtri di ricerca</h2>
+    <form id="filtro-autore">
+      <label for="nome">Nome</label>
+      <select id="nome" name="nome">
+        <option value="">-- Seleziona autore --</option>
+      </select>
 
-        <label for="autore">Nome Autore:</label>
-        <input type="text" id="autore" name="autore">
+      <label for="cognome">Cognome</label>
+      <select id="cognome" name="cognome">
+        <option value="">-- Seleziona autore --</option>
+      </select>
 
-        <button type="button" onclick="ricercaOpere()">Cerca</button>
-      </div>
-    </aside>
+      <label for="nazione">Nazionalità</label>
+      <select id="nazione" name="nazione">
+        <option value="">-- Qualsiasi --</option>
+      </select>
 
-    <section class="content">
-      <h2>Risultati</h2>
-      <div id="risultati">
-        <!-- I risultati della ricerca CRUD appariranno qui -->
-      </div>
-    </section>
-  </main>
+      <button type="submit">Cerca</button>
+    </form>
+  </aside>
 
-  <footer>
-    <p>&copy; 2025 Museo Web - Università degli Studi di Bergamo</p>
-  </footer>
+  <div class="risultati-opere">
+    <table class="tabella-opere">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Cognome</th>
+          <th>Nazione</th>
+          <th>Data nascita</th>
+          <th>Tipo</th>
+          <th>Data morte</th>
+        </tr>
+      </thead>
+      <tbody id="corpo-tabella-opere"></tbody>
+    </table>
+    <div id="paginazione" class="pagination-container"></div>
+  </div>
+</main>
 
-  <script>
-    function ricercaOpere() {
-      // Integrazione futura con AJAX + PHP
-      const titolo = document.getElementById('titolo').value;
-      const autore = document.getElementById('autore').value;
-      document.getElementById('risultati').innerHTML =
-        `<p>Hai cercato: <strong>${titolo}</strong> di <strong>${autore}</strong></p>`;
-    }
-  </script>
+<footer>
+  <p>&copy; 2025 Museo Web - Università degli Studi di Bergamo</p>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function () {
+  $.getJSON("../../src/get_autori.php", function (data) {
+    const nomiSet = new Set();
+    const cognomiSet = new Set();
+    const nazioniSet = new Set();
+
+    data.forEach(function (autore) {
+      if (autore.nome) nomiSet.add(autore.nome);
+      if (autore.cognome) cognomiSet.add(autore.cognome);
+      if (autore.nazione && autore.nazione.trim() !== "") {
+        nazioniSet.add(autore.nazione);
+      }
+    });
+
+    nomiSet.forEach(function (nome) {
+      $('#nome').append(`<option value="${nome}">${nome}</option>`);
+    });
+
+    cognomiSet.forEach(function (cognome) {
+      $('#cognome').append(`<option value="${cognome}">${cognome}</option>`);
+    });
+
+    Array.from(nazioniSet).sort().forEach(function (nazione) {
+      $('#nazione').append(`<option value="${nazione}">${nazione}</option>`);
+    });
+  });
+
+  $('#filtro-autore').on('submit', function (e) {
+    e.preventDefault();
+
+    const filtri = {
+      nome: $('#nome').val(),
+      cognome: $('#cognome').val(),
+      nazione: $('#nazione').val()
+    };
+
+    $.ajax({
+      url: "../../src/cerca_autori.php",
+      type: "POST",
+      dataType: "json",
+      data: filtri,
+      success: function (autori) {
+        const tbody = $('#corpo-tabella-opere');
+        tbody.empty();
+
+        if (autori.length === 0) {
+          tbody.append('<tr><td colspan="6">Nessun autore trovato.</td></tr>');
+          return;
+        }
+
+        autori.forEach(function (autore) {
+          tbody.append(`
+            <tr>
+              <td>${autore.nome}</td>
+              <td>${autore.cognome}</td>
+              <td>${autore.nazione}</td>
+              <td>${autore.dataNascita}</td>
+              <td>${autore.tipo}</td>
+              <td>${autore.dataMorte ?? '—'}</td>
+            </tr>
+          `);
+        });
+      },
+      error: function () {
+        alert("Errore nella ricerca autori.");
+      }
+    });
+  });
+});
+</script>
+
 </body>
 </html>
