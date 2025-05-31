@@ -1,5 +1,5 @@
 <?php
-require_once 'db_config.php';
+require_once 'db_config_altervista.php';
 
 if (!isset($_GET['codice']) || !is_numeric($_GET['codice'])) {
     http_response_code(400);
@@ -10,7 +10,7 @@ if (!isset($_GET['codice']) || !is_numeric($_GET['codice'])) {
 $codice = $_GET['codice'];
 
 $query = "SELECT codice, titolo, annoRealizzazione, annoAcquisto, tipo, espostaInSala 
-          FROM opera WHERE codice = ?";
+          FROM Opera WHERE codice = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("i", $codice);
 $stmt->execute();

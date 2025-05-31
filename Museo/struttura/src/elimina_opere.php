@@ -1,5 +1,5 @@
 <?php
-require_once 'db_config.php';
+require_once 'db_config_altervista.php';
 header('Content-Type: text/plain');
 
 // Logging in file
@@ -12,7 +12,7 @@ $codici = $_POST['codici'] ?? [];
 if (!is_array($codici)) $codici = [$codici];
 log_to_file("POST: " . print_r($codici, true));
 
-$codici = array_filter(array_map('intval', $codici), fn($c) => $c > 0);
+$codici = array_filter(array_map('intval', $codici), function($c) { return $c > 0; });
 log_to_file("Codici puliti: " . implode(', ', $codici));
 
 if (count($codici) === 0) {

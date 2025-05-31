@@ -1,5 +1,5 @@
 <?php
-require_once 'db_config.php'; // modifica il path se necessario
+require_once 'db_config_altervista.php'; // modifica il path se necessario
 
 // Verifica parametri
 if (
@@ -21,7 +21,7 @@ $espostaInSala = isset($_POST['espostaInSala']) && $_POST['espostaInSala'] !== '
     : null;
 
 // Prepara query
-$query = "UPDATE opera SET titolo = ?, annoRealizzazione = ?, annoAcquisto = ?, tipo = ?, espostaInSala = ? WHERE codice = ?";
+$query = "UPDATE Opera SET titolo = ?, annoRealizzazione = ?, annoAcquisto = ?, tipo = ?, espostaInSala = ? WHERE codice = ?";
 $stmt = $conn->prepare($query);
 
 if (!$stmt) {

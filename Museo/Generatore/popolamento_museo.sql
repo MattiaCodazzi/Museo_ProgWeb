@@ -1,4 +1,4 @@
-USE museo;
+
 -- Popolamento della tabella Tema
 INSERT INTO Tema (codice, descrizione) VALUES (1, 'Cubismo');
 INSERT INTO Tema (codice, descrizione) VALUES (2, 'Impressionismo');
@@ -8,7 +8,7 @@ INSERT INTO Tema (codice, descrizione) VALUES (5, 'Realismo');
 INSERT INTO Tema (codice, descrizione) VALUES (6, 'Minimalismo');
 INSERT INTO Tema (codice, descrizione) VALUES (7, 'Pop Art');
 INSERT INTO Tema (codice, descrizione) VALUES (8, 'Barocco');
-INSERT INTO Tema (codice, descrizione) VALUES (9, 'Gotico');
+INSERT INTO Tema (codice, descrizione) VALUES (9, 'Brutalismo');
 INSERT INTO Tema (codice, descrizione) VALUES (10, 'Futurismo');
 
 -- Popolamento della tabella Sala

@@ -1,6 +1,6 @@
 <?php
 header("Content-Type: application/json");
-require_once("db_config.php");
+require_once("db_config_altervista.php");
 
 $sql = "SELECT numero, nome, superficie, temaSala FROM Sala";
 $result = $conn->query($sql);

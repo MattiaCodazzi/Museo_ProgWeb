@@ -11,9 +11,9 @@ if (!isset($_SESSION["username"])) {
 <head>
     <meta charset="UTF-8">
     <title>Dashboard Utente</title>
-    <link rel="stylesheet" href="../Public/style.css">
-    <link rel="stylesheet" href="../Public/news.css">
-    <link rel="stylesheet" href="../Public/img.css">
+    <link rel="stylesheet" href="../public/style.css">
+    <link rel="stylesheet" href="../public/news.css">
+    <link rel="stylesheet" href="../public/img.css">
     <style>
         main.container {
             display: flex;

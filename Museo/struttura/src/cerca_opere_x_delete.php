@@ -1,5 +1,5 @@
 <?php
-require_once 'db_config.php';
+require_once 'db_config_altervista.php';
 
 $titolo = $_POST['titolo'] ?? '';
 $autoreId = $_POST['autoreId'] ?? '';
@@ -12,9 +12,9 @@ $offset = ($pagina - 1) * $limite;
 $query = "SELECT o.codice, o.titolo, o.annoAcquisto, o.annoRealizzazione, o.tipo,
                  CONCAT(a.nome, ' ', a.cognome) AS autore,
                  s.nome AS sala
-          FROM opera o
-          LEFT JOIN autore a ON o.autore = a.codice
-          LEFT JOIN sala s ON o.espostaInSala = s.numero
+          FROM Opera o
+          LEFT JOIN Autore a ON o.autore = a.codice
+          LEFT JOIN Sala s ON o.espostaInSala = s.numero
           WHERE 1=1";
 
 $params = [];

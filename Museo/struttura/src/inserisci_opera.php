@@ -1,5 +1,5 @@
 <?php
-require_once 'db_config.php';
+require_once 'db_config_altervista.php';
 
 // Controlla che arrivi una richiesta POST
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {

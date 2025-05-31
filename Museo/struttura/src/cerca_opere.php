@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 header("Content-Type: application/json");
 
-require_once("db_config.php");
+require_once("db_config_altervista.php");
 file_put_contents("debug_post.txt", print_r($_POST, true));
 
 $titolo = $_POST['titolo'] ?? '';

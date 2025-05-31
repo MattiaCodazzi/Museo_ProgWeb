@@ -1,5 +1,5 @@
 <?php
-require_once 'db_config.php';
+require_once 'db_config_altervista.php';
 header('Content-Type: application/json');
 
 $nome = $_POST['nome'] ?? '';
