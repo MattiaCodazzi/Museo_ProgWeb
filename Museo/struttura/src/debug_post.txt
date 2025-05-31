@@ -1,8 +1,8 @@
 Array
 (
     [titolo] => 
-    [autoreId] => 
-    [tipo] => 
-    [salaId] => 9
+    [autoreId] => 1
+    [tipo] => Quadro
+    [salaId] => 8
     [pagina] => 1
 )

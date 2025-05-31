@@ -3,54 +3,90 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Museo - Gestione Opere</title>
+  <title>Museo - Sale</title>
   <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../tabella_opere.css">
 </head>
 <body>
-  <header>
-    <h1>Gestione Museo</h1>
-  </header>
+<div class="logo-museo">
+  <img src="../../icon/logo.png" alt="Logo Museo">
+</div>
+<header>
+  <h1>Gestione Museo</h1>
+</header>
 
-  <nav>
-	<a href="../../src/dashboard_personale.php" class="attivo">Home</a>
-    <a href="opere.html">Opere</a>
-    <a href="autori.html">Autori</a>
-    <a href="sale.html">Sale</a>
-    <a href="temi.html">Temi</a>
-  </nav>
+<nav>
+  <a href="../../src/dashboard_personale.php" class="attivo">Home</a>
+  <a href="Opere.html">Opere</a>
+  <a href="autori.html">Autori</a>
+  <a href="sale.html">Sale</a>
+  <a href="temi.html">Temi</a>
+</nav>
 
-  <main>
-    <aside class="sidebar">
-      <h2>Filtro / Ricerca</h2>
-      <div class="filter-group">
+<main>
+  <section class="griglia-sale" id="contenitore-sale">
+    <!-- Le card saranno generate dinamicamente -->
+  </section>
 
-        <label for="sala">Numero sala:</label>
-        <input type="text" id="sala" name="sala">
+  <div class="paginazione-sale">
+    <button id="precedente" disabled>« Precedente</button>
+    <button id="successivo">Successivo »</button>
+  </div>
+</main>
 
-        <button type="button" onclick="ricercaSala()">Cerca</button>
-      </div>
-    </aside>
+<footer>
+  <p>&copy; 2025 Museo Web - Università degli Studi di Bergamo</p>
+</footer>
 
-    <section class="content">
-      <h2>Risultati</h2>
-      <div id="risultati">
-        <!-- I risultati della ricerca CRUD appariranno qui -->
-      </div>
-    </section>
-  </main>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  let tutteLeSale = [];
+  let paginaCorrente = 1;
+  const perPagina = 10;
 
-  <footer>
-    <p>&copy; 2025 Museo Web - Università degli Studi di Bergamo</p>
-  </footer>
+  $(document).ready(function () {
+    $.getJSON("../../src/get_sale.php", function (data) {
+      tutteLeSale = data;
+      mostraPagina(1);
+    });
 
-  <script>
-    function ricercaSala() {
-      // Integrazione futura con AJAX + PHP
-      const titolo = document.getElementById('titolo').value;
-      const autore = document.getElementById('autore').value;
-      document.getElementById('risultati').innerHTML =
-        `<p>Hai cercato: <strong>${titolo}</strong> di <strong>${autore}</strong></p>`;
+    $('#successivo').on('click', function () {
+      paginaCorrente++;
+      mostraPagina(paginaCorrente);
+    });
+
+    $('#precedente').on('click', function () {
+      paginaCorrente--;
+      mostraPagina(paginaCorrente);
+    });
+  });
+
+  function mostraPagina(pagina) {
+    const start = (pagina - 1) * perPagina;
+    const end = pagina * perPagina;
+    const salePagina = tutteLeSale.slice(start, end);
+
+    const contenitore = $('#contenitore-sale');
+    contenitore.empty();
+
+    if (salePagina.length === 0) {
+      contenitore.append('<p>Nessuna sala disponibile.</p>');
+      return;
     }
-  </script>
+
+    salePagina.forEach(sala => {
+      contenitore.append(`
+        <div class="card-sala">
+          <h3>${sala.nome}</h3>
+          <p><strong>Superficie:</strong> ${sala.superficie} m²</p>
+          <p><strong>Tema:</strong> ${sala.tema}</p>
+        </div>
+      `);
+    });
+
+    $('#precedente').prop('disabled', pagina === 1);
+    $('#successivo').prop('disabled', end >= tutteLeSale.length);
+  }
+</script>
 </body>
 </html>

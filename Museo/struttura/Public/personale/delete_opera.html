@@ -5,15 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gestione Opere - Elimina</title>
   <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="../tabella_opere.css">
 </head>
+<div class="logo-museo">
+  <img src="../../icon/logo.png" alt="Logo Museo" />
+</div>
 <body>
   <header>
     <h1>Gestione Museo</h1>
   </header>
 
   <nav>
-	<a href="../../src/dashboard_personale.php" class="attivo">Home</a>
-	<a href="opere.html">Opere</a>
+    <a href="../../src/dashboard_personale.php" class="attivo">Home</a>
+    <a href="opere.html">Opere</a>
     <a href="autori.html">Autori</a>
     <a href="sale.html">Sale</a>
     <a href="temi.html">Temi</a>
@@ -48,10 +52,9 @@
       <div id="messaggio-inserimento"></div>
     </aside>
 
-    <section class="content">
-      <h3>Risultati</h3>
+    <div class="risultati-opere">
       <button id="elimina-selezionate">Elimina selezionate</button>
-      <table id="tabella-risultati" border="1">
+      <table class="tabella-opere">
         <thead>
           <tr>
             <th><input type="checkbox" id="seleziona-tutte"></th>
@@ -63,10 +66,11 @@
             <th>Sala</th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody id="corpo-tabella-opere"></tbody>
       </table>
-      <div id="messaggio-eliminazione"></div>
-    </section>
+      <div id="paginazione" class="pagination-container"></div>
+      <div id="messaggio"></div>
+    </div>
   </main>
 
   <footer>
@@ -88,44 +92,78 @@
         });
       });
 
-      $('#filtro-opere').on('submit', function (e) {
-        e.preventDefault();
+      function caricaOpere(filtri = {}, pagina = 1) {
+        filtri.pagina = pagina;
+
         $.ajax({
-          url: '../../src/cerca_opere.php',
+          url: '../../src/cerca_opere_x_delete.php',
           type: 'POST',
           dataType: 'json',
-          data: {
-            titolo: $('#titolo').val(),
-            autoreId: $('#autoreId').val(),
-            tipo: $('#tipo').val(),
-            salaId: $('#salaId').val()
-          },
-          success: function (opere) {
-            const tbody = $('#tabella-risultati tbody');
+          data: filtri,
+          success: function (response) {
+            const opere = response.opere;
+            const totale = response.totale;
+            const limite = response.limite;
+            const pagineTotali = Math.ceil(totale / limite);
+            const tbody = $('#corpo-tabella-opere');
             tbody.empty();
+
             if (opere.length === 0) {
               tbody.append('<tr><td colspan="7">Nessun risultato trovato.</td></tr>');
-              return;
+            } else {
+              opere.forEach(function (opera) {
+                const row = $(`
+                  <tr>
+                    <td><input type="checkbox" class="seleziona-opera" value="${opera.codice}"></td>
+                    <td>${opera.titolo}</td>
+                    <td>${opera.autore}</td>
+                    <td>${opera.tipo}</td>
+                    <td>${opera.annoRealizzazione}</td>
+                    <td>${opera.annoAcquisto}</td>
+                    <td>${opera.sala}</td>
+                  </tr>
+                `);
+                tbody.append(row);
+              });
             }
-            opere.forEach(function (opera) {
-              const row = $(
-                `<tr data-id="${opera.codice}">
-                  <td><input type="checkbox" class="seleziona-opera" value="${opera.codice}"></td>
-                  <td>${opera.titolo}</td>
-                  <td>${opera.autore}</td>
-                  <td>${opera.tipo}</td>
-                  <td>${opera.annoRealizzazione}</td>
-                  <td>${opera.annoAcquisto}</td>
-                  <td>${opera.sala}</td>
-                </tr>`
-              );
-              tbody.append(row);
-            });
+
+            // Paginazione
+            let paginationHTML = '';
+            if (pagina > 1) {
+              paginationHTML += `<button class="pagina-indietro" data-pagina="${pagina - 1}">«</button>`;
+            }
+            paginationHTML += `<span class="pagina-corrente">Pagina ${pagina}</span>`;
+            if (pagina < pagineTotali) {
+              paginationHTML += `<button class="pagina-avanti" data-pagina="${pagina + 1}">»</button>`;
+            }
+            $('#paginazione').html(paginationHTML);
           },
           error: function () {
-            alert("Errore nella ricerca opere.");
+            alert("Errore nel caricamento delle opere.");
           }
         });
+      }
+
+      $('#filtro-opere').on('submit', function (e) {
+        e.preventDefault();
+        const filtri = {
+          titolo: $('#titolo').val(),
+          autoreId: $('#autoreId').val(),
+          tipo: $('#tipo').val(),
+          salaId: $('#salaId').val()
+        };
+        caricaOpere(filtri);
+      });
+
+      $(document).on('click', '.pagina-avanti, .pagina-indietro', function () {
+        const pagina = $(this).data('pagina');
+        const filtri = {
+          titolo: $('#titolo').val(),
+          autoreId: $('#autoreId').val(),
+          tipo: $('#tipo').val(),
+          salaId: $('#salaId').val()
+        };
+        caricaOpere(filtri, pagina);
       });
 
       $('#seleziona-tutte').on('change', function () {
@@ -133,45 +171,44 @@
       });
 
       $('#elimina-selezionate').on('click', function () {
-  const codici = $('.seleziona-opera:checked').map(function () {
-    return parseInt($(this).val());
-  }).get();
+        const codici = $('.seleziona-opera:checked').map(function () {
+          return $(this).val();
+        }).get();
 
-  console.log("Codici selezionati:", codici);
+        if (codici.length === 0) {
+          alert("Seleziona almeno un'opera da eliminare.");
+          return;
+        }
 
-  if (codici.length === 0) {
-    alert("Seleziona almeno un'opera da eliminare.");
-    return;
-  }
+        if (!confirm(`Sei sicuro di voler eliminare ${codici.length} opera/e?`)) {
+          return;
+        }
 
-  if (!confirm(`Sei sicuro di voler eliminare ${codici.length} opera/e?`)) {
-    console.log("Eliminazione annullata dall'utente.");
-    return false;
-  }
+        const formData = new FormData();
+        codici.forEach(c => formData.append('codici[]', c));
 
-  const formData = new FormData();
-  codici.forEach(c => formData.append('codici[]', c));
+        $.ajax({
+          url: '../../src/elimina_opere.php',
+          type: 'POST',
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function (response) {
+            $('#messaggio').html(`<div class="messaggio successo">${response}</div>`);
+            $('#filtro-opere').submit();
+          },
+          error: function (xhr) {
+            $('#messaggio').html(`<div class="messaggio errore">Errore: ${xhr.responseText}</div>`);
+          }
+        });
+      });
 
-  $.ajax({
-    url: '../../src/elimina_opere.php',
-    type: 'POST',
-    data: formData,
-    processData: false,
-    contentType: false,
-    success: function (response) {
-      $('#messaggio-eliminazione').html(`<p style="color: green;">${response}</p>`);
-      $('#filtro-opere').submit();
-    },
-    error: function (xhr) {
-      $('#messaggio-eliminazione').html(`<p style="color: red;">Errore: ${xhr.responseText}</p>`);
-    }
-  });
-});
-
-
+      caricaOpere();
     });
   </script>
 </body>
 </html>
+
+
 
 

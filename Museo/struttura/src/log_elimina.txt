@@ -63,3 +63,25 @@
 09:57:45 Bind types: ii
 09:57:45 Bind values: 1001, 1002
 09:57:45 Query eseguita. Affected rows: 2
+12:21:17 POST: Array
+(
+    [0] => 1006
+    [1] => 1007
+)
+
+12:21:17 Codici puliti: 1006, 1007
+12:21:17 SQL: DELETE FROM Opera WHERE codice IN (?,?)
+12:21:17 Bind types: ii
+12:21:17 Bind values: 1006, 1007
+12:21:17 Query eseguita. Affected rows: 2
+12:56:03 POST: Array
+(
+    [0] => 1003
+    [1] => 1004
+)
+
+12:56:03 Codici puliti: 1003, 1004
+12:56:03 SQL: DELETE FROM Opera WHERE codice IN (?,?)
+12:56:03 Bind types: ii
+12:56:03 Bind values: 1003, 1004
+12:56:03 Query eseguita. Affected rows: 2

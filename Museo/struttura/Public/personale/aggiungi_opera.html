@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Museo - Gestione Opere</title>
   <link rel="stylesheet" href="../style.css">
+
 </head>
 <body>
   <header>
@@ -50,14 +51,13 @@
 
           <button type="submit">Inserisci</button>
         </form>
-
-        <div id="messaggio-inserimento"></div>
-      </div>
     </aside>
 
     <section class="content">
       <h2>Risultati</h2>
       <div id="risultati">
+		<div id="messaggio"></div>
+      </div>
         <!-- I risultati CRUD appariranno qui -->
       </div>
     </section>
@@ -85,11 +85,11 @@
             sala: $("#espostaInSalaId").val()
           },
           success: function(response) {
-            $("#messaggio-inserimento").html(`<p style="color:green;">${response}</p>`);
+            $("#messaggio").html(`<div class="messaggio successo">${response}</div>`);
             $("#form-opera")[0].reset();
           },
           error: function(xhr) {
-            $("#messaggio-inserimento").html(`<p style="color:red;">Errore: ${xhr.responseText}</p>`);
+            $("#messaggio").html(`<div class="messaggio errore">Errore: ${xhr.responseText}</div>`);
           }
         });
       });

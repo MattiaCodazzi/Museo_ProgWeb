@@ -27,8 +27,9 @@
 }
 
 .tabella-opere tr:hover {
-  background-color: hsl(314, 100%, 96%);
+  background-color: #ffa3d5;
   transition: background 0.3s ease;
+  cursor: pointer;
 }
 
 .pagination-container {

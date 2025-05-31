@@ -1,42 +1,44 @@
 <?php
-require_once 'db_config.php';
-header('Content-Type: text/plain');
+require_once 'db_config.php'; // modifica il path se necessario
 
-// Ricezione dati dal form
-$codice = $_POST['codice'] ?? null;
-$titolo = $_POST['titolo'] ?? null;
-$annoRealizzazione = $_POST['annoRealizzazione'] ?? null;
-$annoAcquisto = $_POST['annoAcquisto'] ?? null;
-$tipo = $_POST['tipo'] ?? null;
-$sala = $_POST['espostaInSala'] ?? null;
-
-// Validazione base
-if (!$codice || !$titolo || !$annoRealizzazione || !$annoAcquisto || !$tipo) {
+// Verifica parametri
+if (
+    !isset($_POST['codice'], $_POST['titolo'], $_POST['annoRealizzazione'], 
+             $_POST['annoAcquisto'], $_POST['tipo'])
+) {
     http_response_code(400);
-    exit("Dati mancanti");
+    echo "Parametri mancanti.";
+    exit;
 }
 
-// Se il campo è vuoto, lo convertiamo in null
-$sala = ($sala === "") ? null : (int)$sala;
+$codice = $_POST['codice'];
+$titolo = $_POST['titolo'];
+$annoRealizzazione = $_POST['annoRealizzazione'];
+$annoAcquisto = $_POST['annoAcquisto'];
+$tipo = $_POST['tipo'];
+$espostaInSala = isset($_POST['espostaInSala']) && $_POST['espostaInSala'] !== '' 
+    ? $_POST['espostaInSala'] 
+    : null;
 
-// Query con binding
-$sql = "UPDATE Opera 
-        SET titolo = ?, annoRealizzazione = ?, annoAcquisto = ?, tipo = ?, espostaInSala = ?
-        WHERE codice = ?";
-$stmt = $conn->prepare($sql);
+// Prepara query
+$query = "UPDATE opera SET titolo = ?, annoRealizzazione = ?, annoAcquisto = ?, tipo = ?, espostaInSala = ? WHERE codice = ?";
+$stmt = $conn->prepare($query);
 
-// Binding parametri
-$stmt->bind_param("siisii", $titolo, $annoRealizzazione, $annoAcquisto, $tipo, $sala, $codice);
+if (!$stmt) {
+    http_response_code(500);
+    echo "Errore nella preparazione della query.";
+    exit;
+}
 
-// Esecuzione e risposta
+// Bind (5 stringhe: titolo, tipo, + 3 interi: anni, codice)
+$stmt->bind_param("siissi", $titolo, $annoRealizzazione, $annoAcquisto, $tipo, $espostaInSala, $codice);
+
 if ($stmt->execute()) {
-    echo "✅ Opera aggiornata con successo";
+    echo "Modifica salvata con successo.";
 } else {
     http_response_code(500);
-    echo "❌ Errore durante l'aggiornamento: " . $stmt->error;
+    echo "Errore nel salvataggio della modifica.";
 }
-
-$stmt->close();
-$conn->close();
 ?>
+
 
