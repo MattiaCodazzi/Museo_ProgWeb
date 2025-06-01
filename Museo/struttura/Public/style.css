@@ -7,7 +7,7 @@
 }
 
 body {
-  background: url('../immagini/opera_in_evidenza.jpg') no-repeat center center fixed;
+  background: url('https://pwproject.altervista.org/ProgettoParte1/Museo/struttura/immagini/opera_in_evidenza.jpg') no-repeat center center fixed;
   background-size: cover;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
