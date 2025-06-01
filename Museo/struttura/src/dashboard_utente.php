@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION["username"])) {
-    header("Location: ../Public/main.html");
+    header("Location: ../public/main.html");
     exit;
 }
 ?>
@@ -72,6 +72,10 @@ if (!isset($_SESSION["username"])) {
     </section>
 </main>
 
+<footer>
+    <p>&copy; 2025 Museo Virtuale</p>
+</footer>
+
 <!-- POPUP -->
 <div id="newsPopup" class="popup hidden">
     <div class="popup-content">
@@ -111,9 +115,7 @@ if (!isset($_SESSION["username"])) {
     });
 </script>
 
-<footer>
-    <p>&copy; 2025 Museo Virtuale</p>
-</footer>
+
 
 </body>
 </html>

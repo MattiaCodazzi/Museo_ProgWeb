@@ -63,8 +63,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Registrazione Utente</title>
-    <link rel="stylesheet" href="../Public/style.css">
-    <link rel="stylesheet" href="../Public/img.css">
+    <link rel="stylesheet" href="../public/style.css">
+    <link rel="stylesheet" href="../public/img.css">
 
 </head>
 <body>
