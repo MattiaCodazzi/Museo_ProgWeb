@@ -5,6 +5,17 @@ Il sistema consente l'inserimento, la modifica, la ricerca e l'esposizione virtu
 
 ---
 
+## 🌐 Versione online del progetto
+
+Per visualizzare il progetto completo online, è disponibile una versione ospitata su Altervista:
+
+👉 [https://pwproject.altervista.org/ProgettoParte1/Museo/struttura/public/main.html](https://pwproject.altervista.org/ProgettoParte1/Museo/struttura/public/main.html)
+
+Da questo link è possibile accedere all’interfaccia principale del sito, visitare tutte le pagine e testare direttamente tutte le funzionalità implementate, comprese le operazioni CRUD sulle opere del museo.
+
+
+
+
 ## 🚀 Avvio in locale (con XAMPP)
 
 ### 1. Clona la repository
@@ -81,3 +92,10 @@ solo Apache (o un altro web server) può interpretarlo e generare pagine HTML di
 | **MySQL**              | Database relazionale            |
 | **XAMPP**              | Server locale completo          |
 | **phpMyAdmin**         | Interfaccia per la gestione DB  |
+
+---
+
+## 🧑‍💻 Autori
+
+- Codazzi Mattia
+- Cattaldo Andrea
