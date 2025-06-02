@@ -1,5 +1,5 @@
 <?php
-require_once 'db_config_altervista.php'; // modifica il path se necessario
+require_once 'db_config.php'; // modifica il path se necessario
 
 // Verifica parametri
 if (

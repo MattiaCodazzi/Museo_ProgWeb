@@ -1,5 +1,5 @@
 <?php
-require_once 'db_config_altervista.php';
+require_once 'db_config.php';
 
 $titolo = $_POST['titolo'] ?? '';
 $autoreId = $_POST['autoreId'] ?? '';

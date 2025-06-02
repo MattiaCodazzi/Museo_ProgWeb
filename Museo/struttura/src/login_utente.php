@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$conn = new mysqli("localhost", "pwproject", "", "my_pwproject"); // ← Sostituisci con il nome reale del tuo DB
+$conn = new mysqli("localhost", "root", "", "museo"); // ← Sostituisci con il nome reale del tuo DB
 if ($conn->connect_error) die("Errore connessione");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

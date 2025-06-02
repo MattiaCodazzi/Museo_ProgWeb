@@ -2,7 +2,7 @@
 session_start();
 
 // Connessione DB
-$conn = new mysqli("localhost", "pwproject", "", "my_pwproject");
+$conn = new mysqli("localhost", "root", "", "museo");
 if ($conn->connect_error) {
     die("Errore connessione");
 }

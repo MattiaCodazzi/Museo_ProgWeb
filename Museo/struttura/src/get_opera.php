@@ -1,5 +1,5 @@
 <?php
-require_once 'db_config_altervista.php';
+require_once 'db_config.php';
 header('Content-Type: application/json');
 
 $codice = $_GET['codice'] ?? null;

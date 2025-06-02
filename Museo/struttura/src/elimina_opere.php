@@ -1,5 +1,5 @@
 <?php
-require_once 'db_config_altervista.php';
+require_once 'db_config.php';
 header('Content-Type: text/plain');
 
 // Logging in file

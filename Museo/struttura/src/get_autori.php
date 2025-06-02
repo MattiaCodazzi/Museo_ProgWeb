@@ -3,7 +3,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-require_once 'db_config_altervista.php'; // Assicurati che config.php sia nella stessa cartella
+require_once 'db_config.php'; // Assicurati che config.php sia nella stessa cartella
 header('Content-Type: application/json');
 
 $sql = "SELECT codice, nome, cognome, nazione, dataNascita, tipo, dataMorte FROM Autore";

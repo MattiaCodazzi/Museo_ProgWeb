@@ -1,5 +1,5 @@
 <?php
-require_once 'db_config_altervista.php';
+require_once 'db_config.php';
 
 // Recupera i filtri dal POST
 $titolo = $_POST['titolo'] ?? '';
