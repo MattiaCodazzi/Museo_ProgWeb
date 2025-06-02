@@ -1,79 +1,85 @@
-# 🖼️ Museo_ProgWeb
-
-Repository per progetto universitario **Programmazione Web**  
-Web application per la gestione di opere museali, sviluppata con **HTML**, **CSS**, **JavaScript (AJAX, jQuery)**, **PHP** e **MySQL**.
-
----
-
-## 🚀 Come avviare l'applicazione in locale
-
-### 1. Clona la repository
-```bash
+🚀 Avvio in locale (con XAMPP)
+1. Clona la repository
+bash
+Copia
+Modifica
 git clone https://github.com/tuo-username/Museo_ProgWeb.git
-```
+2. Installa XAMPP
+Scarica e installa XAMPP da:
+👉 https://www.apachefriends.org
 
-### 2. Installa XAMPP
-Scarica **XAMPP** (che include Apache, PHP e MySQL) da:  
-👉 https://www.apachefriends.org/
+3. Avvia Apache e MySQL
+Apri XAMPP Control Panel
 
-### 3. Avvia Apache e MySQL
-1. Apri il **XAMPP Control Panel**
-2. Clicca su **"Start"** accanto ad **Apache** e **MySQL**
-3. Entrambi devono diventare **verdi**
+Clicca su "Start" accanto a Apache e MySQL
 
-### 4. Crea il database con phpMyAdmin
-1. Apri il browser e vai su: [http://localhost/phpmyadmin](http://localhost/phpmyadmin)
-2. Clicca su **"Nuovo"**
-3. Crea un nuovo database chiamato:
-   ```
-   museo
-   ```
+Entrambi devono diventare verdi
 
-### 5. Importa le tabelle e i dati
-1. Seleziona il database `museo` in phpMyAdmin
-2. Clicca su **"Importa"**
-3. Importa i seguenti file **nell’ordine**:
-   - `creazione_tabelle.sql`
-   - `popolamento_museo.sql`
+4. Sposta il progetto nella cartella corretta
+Sposta la cartella del progetto in:
 
-### 6. Sposta il progetto nella cartella corretta
-Copia l'intera cartella del progetto clonata in:
-```
-C:\xampp\htdocs\
-```
+makefile
+Copia
+Modifica
+C:\xampp\htdocs\ProgettoParte1\
+5. Crea il database con phpMyAdmin
+Vai su http://localhost/phpmyadmin
 
-### 7. Avvia l'applicazione nel browser
-Apri uno di questi URL nel tuo browser:
-- [http://localhost/museo/main.html](http://localhost/museo/main.html)
-- [http://localhost/museo/aggiungi_opera.html](http://localhost/museo/aggiungi_opera.html)
-- [http://localhost/museo/cerca_opera.html](http://localhost/museo/cerca_opera.html)
+Clicca su "Nuovo" → crea un database chiamato:
 
-> ⚠️ **Non aprire i file HTML con doppio clic!**  
-> Devono essere eseguiti attraverso il server Apache (localhost), altrimenti i file PHP non funzioneranno.
+nginx
+Copia
+Modifica
+museo
+6. Importa la struttura e i dati
+Seleziona il database museo
 
----
+Vai su "Importa"
 
-## ❓ Perché Apache è necessario per PHP?
+Carica i seguenti file (nell’ordine):
 
-PHP è un linguaggio **lato server**, quindi i file `.php` **non vengono interpretati direttamente dal browser**. Serve un server web — come Apache — che:
+creazione_tabelle.sql
 
-- esegue il codice PHP,
-- comunica con il database MySQL,
-- restituisce al browser l’output HTML.
+popolamento_museo.sql
 
-### In fase di sviluppo:
-È necessario tenere **Apache attivo tramite XAMPP**.
+Poi visita:
 
-### In fase di produzione (es. su Altervista):
-Non è più necessario avviare Apache manualmente perché il server Altervista **include già Apache**, e i file PHP vengono eseguiti automaticamente via browser.
+bash
+Copia
+Modifica
+http://localhost/ProgettoParte1/Museo/Generatore/genera_personale.php
+Copia il contenuto SQL generato
 
----
+Torna su phpMyAdmin → seleziona museo → scheda SQL → incolla → Esegui
 
-## 🧰 Tecnologie utilizzate
+⚠️ Crea anche la tabella utenti (puoi farlo da interfaccia o via script, se previsto).
 
-- ✅ HTML, CSS
-- ✅ JavaScript, jQuery, AJAX
-- ✅ PHP
-- ✅ MySQL
-- ✅ XAMPP (Apache + MySQL + PHP)
-- ✅ phpMyAdmin
+7. Avvia l’applicazione dal browser
+Esegui una delle seguenti URL:
+
+http://localhost/ProgettoParte1/Museo/struttura/public/main.html
+
+http://localhost/ProgettoParte1/Museo/aggiungi_opera.html
+
+http://localhost/ProgettoParte1/Museo/cerca_opera.html
+
+⚠️ Non aprire i file HTML con doppio clic!
+L'applicazione funziona solo passando dal server Apache (localhost), altrimenti il codice PHP non verrà eseguito.
+
+ℹ️ Perché usare Apache?
+PHP è un linguaggio lato server:
+solo Apache (o un altro web server) può interpretarlo e generare pagine HTML dinamiche.
+
+✅ In locale: XAMPP fornisce Apache + MySQL
+
+✅ In produzione (es. su Altervista): il server esegue già Apache
+
+🧰 Tecnologie utilizzate
+Linguaggio / Tool	Utilizzo
+HTML, CSS	Struttura e stile delle pagine
+JavaScript, jQuery	Interattività lato client
+AJAX	Comunicazione asincrona con PHP
+PHP	Logica server e accesso DB
+MySQL	Database relazionale
+XAMPP	Server locale completo
+phpMyAdmin	Interfaccia per la gestione DB
