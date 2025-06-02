@@ -1,11 +1,22 @@
 # 🖼️ Museo_ProgWeb
 
-Repository per progetto universitario **Programmazione Web**  
-Web application per la gestione di opere museali, sviluppata con **HTML**, **CSS**, **JavaScript (AJAX, jQuery)**, **PHP** e **MySQL**.
+**Museo_ProgWeb** è un'applicazione web per la gestione digitale delle opere museali, sviluppata come progetto universitario per il corso di **Programmazione Web**.  
+Il sistema consente l'inserimento, la modifica, la ricerca e l'esposizione virtuale delle opere, con un'interfaccia dinamica basata su **AJAX**, **PHP** e **MySQL**.
 
 ---
 
-## 🚀 Come avviare l'applicazione in locale
+## 🌐 Versione online del progetto
+
+Per visualizzare il progetto completo online, è disponibile una versione ospitata su Altervista:
+
+👉 [https://pwproject.altervista.org/ProgettoParte1/Museo/struttura/public/main.html](https://pwproject.altervista.org/ProgettoParte1/Museo/struttura/public/main.html)
+
+Da questo link è possibile accedere all’interfaccia principale del sito, visitare tutte le pagine e testare direttamente tutte le funzionalità implementate, comprese le operazioni CRUD sulle opere del museo.
+
+
+
+
+## 🚀 Avvio in locale (con XAMPP)
 
 ### 1. Clona la repository
 ```bash
@@ -13,67 +24,78 @@ git clone https://github.com/tuo-username/Museo_ProgWeb.git
 ```
 
 ### 2. Installa XAMPP
-Scarica **XAMPP** (che include Apache, PHP e MySQL) da:  
-👉 https://www.apachefriends.org/
+Scarica e installa XAMPP da:  
+👉 [https://www.apachefriends.org](https://www.apachefriends.org)
 
 ### 3. Avvia Apache e MySQL
-1. Apri il **XAMPP Control Panel**
-2. Clicca su **"Start"** accanto ad **Apache** e **MySQL**
-3. Entrambi devono diventare **verdi**
+- Apri **XAMPP Control Panel**
+- Clicca su **"Start"** accanto a **Apache** e **MySQL**
+- Entrambi devono diventare **verdi**
 
-### 4. Crea il database con phpMyAdmin
-1. Apri il browser e vai su: [http://localhost/phpmyadmin](http://localhost/phpmyadmin)
-2. Clicca su **"Nuovo"**
-3. Crea un nuovo database chiamato:
-   ```
-   museo
-   ```
-
-### 5. Importa le tabelle e i dati
-1. Seleziona il database `museo` in phpMyAdmin
-2. Clicca su **"Importa"**
-3. Importa i seguenti file **nell’ordine**:
-   - `creazione_tabelle.sql`
-   - `popolamento_museo.sql`
-
-### 6. Sposta il progetto nella cartella corretta
-Copia l'intera cartella del progetto clonata in:
+### 4. Sposta il progetto nella cartella corretta
+Sposta la cartella del progetto in:
 ```
-C:\xampp\htdocs\
+C:\xampp\htdocs\ProgettoParte1\
 ```
 
-### 7. Avvia l'applicazione nel browser
-Apri uno di questi URL nel tuo browser:
-- [http://localhost/museo/main.html](http://localhost/museo/main.html)
-- [http://localhost/museo/aggiungi_opera.html](http://localhost/museo/aggiungi_opera.html)
-- [http://localhost/museo/cerca_opera.html](http://localhost/museo/cerca_opera.html)
+### 5. Crea il database con phpMyAdmin
+- Vai su [http://localhost/phpmyadmin](http://localhost/phpmyadmin)
+- Clicca su **"Nuovo"** → crea un database chiamato:
+  ```
+  museo
+  ```
+
+### 6. Importa la struttura e i dati
+- Seleziona il database `museo`
+- Vai su **"Importa"**
+- Carica i seguenti file (nell’ordine):
+  1. `creazione_tabelle.sql`
+  2. `popolamento_museo.sql`
+- Poi visita:
+  ```
+  http://localhost/ProgettoParte1/Museo/Generatore/genera_personale.php
+  ```
+  - Copia il contenuto SQL generato
+  - Torna su phpMyAdmin → seleziona `museo` → scheda **SQL** → incolla → **Esegui**
+
+> ⚠️ Crea anche la tabella `utenti` (puoi farlo da interfaccia o via script, se previsto).
+
+### 7. Avvia l’applicazione dal browser
+Esegui una delle seguenti URL:
+- [http://localhost/ProgettoParte1/Museo/struttura/public/main.html](http://localhost/ProgettoParte1/Museo/struttura/public/main.html)
+- [http://localhost/ProgettoParte1/Museo/aggiungi_opera.html](http://localhost/ProgettoParte1/Museo/aggiungi_opera.html)
+- [http://localhost/ProgettoParte1/Museo/cerca_opera.html](http://localhost/ProgettoParte1/Museo/cerca_opera.html)
 
 > ⚠️ **Non aprire i file HTML con doppio clic!**  
-> Devono essere eseguiti attraverso il server Apache (localhost), altrimenti i file PHP non funzioneranno.
+> L'applicazione funziona solo passando dal server Apache (localhost), altrimenti il codice PHP non verrà eseguito.
 
 ---
 
-## ❓ Perché Apache è necessario per PHP?
+## ℹ️ Perché usare Apache?
 
-PHP è un linguaggio **lato server**, quindi i file `.php` **non vengono interpretati direttamente dal browser**. Serve un server web — come Apache — che:
+PHP è un linguaggio lato server:  
+solo Apache (o un altro web server) può interpretarlo e generare pagine HTML dinamiche.
 
-- esegue il codice PHP,
-- comunica con il database MySQL,
-- restituisce al browser l’output HTML.
-
-### In fase di sviluppo:
-È necessario tenere **Apache attivo tramite XAMPP**.
-
-### In fase di produzione (es. su Altervista):
-Non è più necessario avviare Apache manualmente perché il server Altervista **include già Apache**, e i file PHP vengono eseguiti automaticamente via browser.
+- ✅ In locale: XAMPP fornisce Apache + MySQL
+- ✅ In produzione (es. su Altervista): il server esegue già Apache
 
 ---
 
 ## 🧰 Tecnologie utilizzate
 
-- ✅ HTML, CSS
-- ✅ JavaScript, jQuery, AJAX
-- ✅ PHP
-- ✅ MySQL
-- ✅ XAMPP (Apache + MySQL + PHP)
-- ✅ phpMyAdmin
+| Linguaggio / Tool      | Utilizzo                        |
+|------------------------|----------------------------------|
+| **HTML, CSS**          | Struttura e stile delle pagine  |
+| **JavaScript, jQuery** | Interattività lato client        |
+| **AJAX**               | Comunicazione asincrona con PHP |
+| **PHP**                | Logica server e accesso DB      |
+| **MySQL**              | Database relazionale            |
+| **XAMPP**              | Server locale completo          |
+| **phpMyAdmin**         | Interfaccia per la gestione DB  |
+
+---
+
+## 🧑‍💻 Autori
+
+- Codazzi Mattia
+- Cattaldo Andrea
