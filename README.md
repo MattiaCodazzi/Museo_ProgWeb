@@ -18,10 +18,13 @@ Da questo link è possibile accedere all’interfaccia principale del sito, visi
 > È quindi possibile utilizzare le seguenti credenziali di esempio:
 
 **_username:_** `mrossi`  
-**_password:_** `password1`
+**_password:_** `password1`<br><br><br><br>
 
 
 
+
+
+# Solo per sviluppo 
 
 ## 🚀 Avvio in locale (con XAMPP)
 
