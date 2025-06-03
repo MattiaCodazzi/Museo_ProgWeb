@@ -92,3 +92,10 @@ Sono previste validazioni lato client e lato server per garantire la correttezza
 👉 [https://pwproject.altervista.org/ProgettoParte1/Museo/struttura/public/main.html](https://pwproject.altervista.org/ProgettoParte1/Museo/struttura/public/main.html)
 
 Da questo link è possibile accedere alla homepage dell'applicazione, esplorare tutte le sezioni del sito e provare tutte le funzionalità descritte, inclusa la registrazione utenti e la gestione CRUD delle opere.
+
+> ℹ️ **Nota importante:** per accedere alla **zona personale del museo**, è necessario effettuare il login con un **account appartenente al personale**.  
+> A fini di test, si assume che il personale disponga già di un account pre-registrato nel database.  
+> È quindi possibile utilizzare le seguenti credenziali di esempio:
+
+**_username:_** `mrossi`  
+**_password:_** `password1`
