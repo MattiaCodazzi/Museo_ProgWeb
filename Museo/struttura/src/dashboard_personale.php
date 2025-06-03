@@ -16,7 +16,9 @@ if (!isset($_SESSION["username"])) {
     <link rel="stylesheet" href="../public/style.css">
 </head>
 <body>
-
+<div class="logo-museo">
+    <img src="../icon/logo.png" alt="Logo Museo">
+  </div>
 <header>
     <h1>Benvenuto, <?php echo $_SESSION["nome"]; ?> (<?php echo $_SESSION["ruolo"]; ?>) </h1> 
     <a href="logout.php" class="logout-absolute">Logout</a>
@@ -60,7 +62,8 @@ if (!isset($_SESSION["username"])) {
 </main>
 
 <footer>
-    <p>&copy; 2025 Museo Virtuale</p>
+      <p>&copy; 2025 Museo Web - Università degli Studi di Bergamo</p>
+
 </footer>
 
 </body>

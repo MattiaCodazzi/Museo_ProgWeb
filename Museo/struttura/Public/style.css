@@ -92,6 +92,7 @@ main {
 }
 
 .info-wrapper {
+  margin-top:6rem ;
   flex: 1;
   text-align: center;
 }
@@ -115,7 +116,7 @@ main {
   justify-content: flex-start;
   gap: 2rem;
   margin-top: 2rem;
-  width: 400px;
+  width: 2000px;
 }
 
 .form-box {
@@ -139,7 +140,8 @@ main {
 
 
 .info-box {
-  background: #7d7878;
+  color:  #7d7878;
+  background: hsl(314, 100%, 95%);
   padding: 1.5rem;
   border-radius: 10px;
   box-shadow: 0 0 8px #fff;
@@ -213,7 +215,7 @@ footer {
 }
 
 .messaggio {
-  max-width: 500px;
+  max-width: 20rem;
   padding: 1rem;
   border-radius: 6px;
   font-weight: bold;
@@ -240,6 +242,7 @@ footer {
 }
 
 .errore-popup {
+  
   background-color: #fff3cd;
   color: #856404;
   border-left: 5px solid #ffc107;
@@ -297,5 +300,14 @@ footer {
   box-shadow: 0 0 10px rgba(0,0,0,0.15);
 }
 
+.messaggio-box {
+  width: 500px;
+  min-height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
 
-
+.form-box section{
+width: 100px;
+}

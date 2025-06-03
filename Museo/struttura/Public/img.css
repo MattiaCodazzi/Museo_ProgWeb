@@ -1,9 +1,9 @@
 .galleria {
   position:relative;
-  width: 1000px;
+  width: 400px;
   height: 500px;
   overflow: hidden;
-  margin-left: 40rem;
+  margin-left: -2rem;
   margin-top: 1rem;
 }
 

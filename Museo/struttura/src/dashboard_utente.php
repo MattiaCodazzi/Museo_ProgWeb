@@ -73,7 +73,8 @@ if (!isset($_SESSION["username"])) {
 </main>
 
 <footer>
-    <p>&copy; 2025 Museo Virtuale</p>
+      <p>&copy; 2025 Museo Web - Università degli Studi di Bergamo</p>
+
 </footer>
 
 <!-- POPUP -->

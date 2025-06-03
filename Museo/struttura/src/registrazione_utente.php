@@ -1,6 +1,6 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $conn = new mysqli("localhost", "root", "", "museo");
+    $conn = new mysqli("localhost", "pwproject", "", "my_pwproject");
     if ($conn->connect_error) die("Errore connessione");
 
     $username = $_POST["username"];
@@ -84,27 +84,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <main class="container">
         
 
-        <div class="form-container">
-        <form method="post" action="registrazione_utente.php">
-            <input type="text" name="username" placeholder="Username" required><br><br>
-            <input type="text" name="nome" placeholder="Nome" required><br><br>
-            <input type="text" name="cognome" placeholder="Cognome" required><br><br>
-            <input type="email" name="email" placeholder="Email" required><br><br>
-            <input type="password" name="password" placeholder="Password" required><br><br>
-            <button type="submit" class="btn">Registrati</button>
-        </form>
+   <div class="form-container">
+  <!-- Colonna sinistra: form -->
+  <div class="form-box section">
+    <form method="post" action="registrazione_utente.php">
+      <input type="text" name="username" placeholder="Username" required><br><br>
+      <input type="text" name="nome" placeholder="Nome" required><br><br>
+      <input type="text" name="cognome" placeholder="Cognome" required><br><br>
+      <input type="email" name="email" placeholder="Email" required><br><br>
+      <input type="password" name="password" placeholder="Password" required><br><br>
+      <button type="submit" class="btn">Registrati</button>
+    </form>
+  </div>
+
+  <!-- Colonna centrale: messaggio -->
+  <div class="messaggio-box">
     <?php if (isset($messaggio)) echo $messaggio; ?>
-    </div>
-    <div class="galleria">
-        <img id="immagine-corrente" src="../immagini/galleria2.jpg" alt="Opera">
-        <button id="next-btn">
-            <img src="../icon/play-button.png" alt="Avanti">
-        </button>
-    </div>
+  </div>
+
+  <!-- Colonna destra: galleria -->
+  <div class="galleria">
+    <img id="immagine-corrente" src="../immagini/galleria2.jpg" alt="Opera">
+    <button id="next-btn">
+      <img src="../icon/play-button.png" alt="Avanti">
+    </button>
+  </div>
+</div>
     </main>
  
     <footer>
-        <p>&copy; 2025 Museo Virtuale</p>
+          <p>&copy; 2025 Museo Web - Università degli Studi di Bergamo</p>
+
         <small>
         <a href="https://www.flaticon.com/free-icons/play-button" title="play button icons" class="flaticon-link">Play button icons created by Freepik - Flaticon</a>
         </small>
