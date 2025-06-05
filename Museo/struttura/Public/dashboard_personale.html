@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -12,8 +10,7 @@
     <img src="../icon/logo.png" alt="Logo Museo">
   </div>
 <header>
-    <h1>Benvenuto, <?php echo $_SESSION["nome"]; ?> (<?php echo $_SESSION["ruolo"]; ?>) </h1> 
-    <a href="logout.php" class="logout-absolute">Logout</a>
+    <h1>Benvenuto</h1> 
     <nav>
     <a href="../public/personale/opere.html">Opere</a>
     <a href="../public/personale/autori.html">Autori</a>
@@ -29,14 +26,14 @@
     <ul>
       <li>🖼️ <strong>Gestione opere:</strong> accedi alla sezione <em>Opere</em> per visualizzare, modificare o aggiungere opere d’arte.</li>
       <li>👤 <strong>Gestione autori:</strong> visualizza e aggiorna le informazioni sugli autori.</li>
-      <li>🏛️ <strong>Gestione sale:</strong> consulta le sale espositive e modificale se necessario.</li>
-      <li>🎨 <strong>Gestione temi:</strong> assegna o modifica i temi delle sale.</li>
+      <li>🏛️ <strong>Gestione sale:</strong> consulta le sale espositive.</li>
+      <li>🎨 <strong>Gestione temi:</strong> consulta i temi disponibili.</li>
     </ul>
   </section>
 
   <section class="guida">
     <h3>Suggerimenti rapidi</h3>
-    <p>Usa la barra di navigazione in alto per accedere rapidamente alle funzionalità CRUD. Ogni sezione ti consente di:</p>
+    <p>Usa la barra di navigazione in alto per accedere rapidamente alle funzionalità CRUD. La sezione Opere ti consente di:</p>
     <ul>
       <li>🔍 Filtrare e cercare informazioni specifiche</li>
       <li>✏️ Modificare i dati esistenti</li>

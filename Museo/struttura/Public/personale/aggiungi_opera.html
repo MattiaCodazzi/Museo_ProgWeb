@@ -5,15 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Museo - Gestione Opere</title>
   <link rel="stylesheet" href="../style.css">
-
 </head>
 <body>
+<div class="logo-museo">
+  <a href="../dashboard_personale.html">
+    <img src="../../icon/logo.png" alt="Logo Museo" />
+  </a>
+</div>
+
   <header>
     <h1>Inserisci opere</h1>
   </header>
 
   <nav>
-	<a href="../dashboard_personale.html" class="attivo">Home</a>
+    <a href="../dashboard_personale.html" class="attivo">Home</a>
     <a href="opere.html">Opere</a>
     <a href="autori.html">Autori</a>
     <a href="sale.html">Sale</a>
@@ -33,10 +38,12 @@
           <input type="text" id="titolo" name="titolo" required>
           
           <label for="annoRealizzazione">Anno di realizzazione</label>
-          <input type="number" id="annoRealizzazione" name="annoRealizzazione" required>
+          <input type="number" id="annoRealizzazione" name="annoRealizzazione"
+                 required min="1000" max="2025" placeholder="es. 2020">
 
           <label for="annoAcquisto">Anno di acquisto</label>
-          <input type="number" id="annoAcquisto" name="annoAcquisto" required>
+          <input type="number" id="annoAcquisto" name="annoAcquisto"
+                 required min="1000" max="2025" placeholder="es. 2023">
           
           <label for="tipo">Tipo</label>
           <select id="tipo" name="tipo" required>
@@ -51,16 +58,39 @@
 
           <button type="submit">Inserisci</button>
         </form>
+      </div>
     </aside>
 
     <section class="content">
       <h2>Risultati</h2>
       <div id="risultati">
-		<div id="messaggio"></div>
-      </div>
-        <!-- I risultati CRUD appariranno qui -->
+        <div id="messaggio"></div>
       </div>
     </section>
+
+<div class="box-opere-laterali">
+  <h3>🎨 Opere dal museo</h3>
+  <div class="grid-opere-fisse">
+    <div class="opera-card">
+      <img src="../../immagini/opera1.jpg" alt="Opera 1">
+      <p><strong>Villaggio</strong><br><em>Joyce Arnold</em></p>
+    </div>
+    <div class="opera-card">
+      <img src="../../immagini/opera2.jpg" alt="Opera 2">
+      <p><strong>Pianura</strong><br><em>Adalbert Kade</em></p>
+    </div>
+    <div class="opera-card">
+      <img src="../../immagini/opera3.jpg" alt="Opera 3">
+      <p><strong>Burrasca</strong><br><em>Tiffany Huber</em></p>
+    </div>
+    <div class="opera-card">
+      <img src="../../immagini/opera4.jpg" alt="Opera 4">
+      <p><strong>Castello</strong><br><em>Sören Östlund</em></p>
+    </div>
+  </div>
+</div>
+
+
   </main>
 
   <footer>
@@ -70,30 +100,6 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     $(document).ready(function () {
-      // Submit del form
-      $("#form-opera").on("submit", function(e) {
-        e.preventDefault();
-        $.ajax({
-          url: "../../src/inserisci_opera.php",
-          type: "POST",
-          data: {
-            autore: $("#autoreId").val(),
-            titolo: $("#titolo").val(),
-            annoRealizzazione: $("#annoRealizzazione").val(),
-            annoAcquisto: $("#annoAcquisto").val(),
-            tipo: $("#tipo").val(),
-            sala: $("#espostaInSalaId").val()
-          },
-          success: function(response) {
-            $("#messaggio").html(`<div class="messaggio successo">${response}</div>`);
-            $("#form-opera")[0].reset();
-          },
-          error: function(xhr) {
-            $("#messaggio").html(`<div class="messaggio errore">Errore: ${xhr.responseText}</div>`);
-          }
-        });
-      });
-
       // Popola autori
       $.getJSON("../../src/get_autori.php", function (data) {
         data.forEach(function (autore) {
@@ -107,8 +113,68 @@
           $("#espostaInSalaId").append(`<option value="${sala.numero}">${sala.nome}</option>`);
         });
       });
+
+      // Limita input numerico a max 4 cifre e > 0
+      function limitaInputAnno(id) {
+        const input = document.getElementById(id);
+        input.addEventListener('input', function () {
+          let val = input.value;
+          if (val < 0) val = '';
+          if (val.length > 4) val = val.slice(0, 4);
+          input.value = val;
+        });
+      }
+
+      limitaInputAnno('annoRealizzazione');
+      limitaInputAnno('annoAcquisto');
+
+      // Submit del form con validazione anni
+      $("#form-opera").on("submit", function(e) {
+        e.preventDefault();
+
+        const annoR = parseInt($("#annoRealizzazione").val());
+        const annoA = parseInt($("#annoAcquisto").val());
+
+        if (isNaN(annoR) || annoR < 1000 || annoR > 2025) {
+          $("#messaggio").html(`<div class="messaggio errore">Anno di realizzazione non valido (1000–2025).</div>`);
+          return;
+        }
+
+        if (isNaN(annoA) || annoA < 1000 || annoA > 2025) {
+          $("#messaggio").html(`<div class="messaggio errore">Anno di acquisto non valido (1000–2025).</div>`);
+          return;
+        }
+
+        if (annoA < annoR) {
+          $("#messaggio").html(`<div class="messaggio errore">L'anno di acquisto non può essere precedente a quello di realizzazione.</div>`);
+          return;
+        }
+
+        // Invia dati via AJAX
+        $.ajax({
+          url: "../../src/inserisci_opera.php",
+          type: "POST",
+          data: {
+            autore: $("#autoreId").val(),
+            titolo: $("#titolo").val(),
+            annoRealizzazione: annoR,
+            annoAcquisto: annoA,
+            tipo: $("#tipo").val(),
+            sala: $("#espostaInSalaId").val()
+          },
+          success: function(response) {
+            $("#messaggio").html(`<div class="messaggio successo">${response}</div>`);
+            $("#form-opera")[0].reset();
+          },
+          error: function(xhr) {
+            $("#messaggio").html(`<div class="messaggio errore">Errore: ${xhr.responseText}</div>`);
+          }
+        });
+      });
     });
   </script>
 </body>
 </html>
+
+
 

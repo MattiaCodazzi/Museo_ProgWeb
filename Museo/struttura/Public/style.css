@@ -7,7 +7,7 @@
 }
 
 body {
-  background: url('../immagini/opera_in_evidenza.jpg') no-repeat center center fixed;
+  background: url('../immagini/sfondo_scuro.jpg') no-repeat center center fixed;
   background-size: cover;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
@@ -221,7 +221,8 @@ footer {
   font-weight: bold;
   font-size: 0.95rem;
   box-shadow: 0 0 6px rgba(0,0,0,0.1);
-  margin-left: 10rem;
+  margin-left: 0rem;
+  margin-top: 2rem;
 }
 
 .messaggio.errore {
@@ -311,3 +312,229 @@ footer {
 .form-box section{
 width: 100px;
 }
+
+.logo-museo {
+  position: absolute;
+  top: 5px;
+  right: 0px;
+  z-index: 1000;
+}
+
+.logo-museo a {
+  display: inline-block;
+}
+
+/* === Layout Modifica Opera === */
+.contenitore-modifica {
+      display: flex;
+      align-items: flex-start;
+      gap: 2rem;
+      padding: 2rem 1rem;
+      width: 100%;
+    }
+
+.colonna-tabella {
+  flex: 2;
+  min-width: 600px;
+}
+
+.colonna-form {
+  flex: 1.2;
+  min-width: 320px;
+  background-color: hsla(314, 100%, 95%, 0.9);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  color: #7d7878;
+}
+
+.colonna-form form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+.pagination-container {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+.colonna-form label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.colonna-form input,
+.colonna-form select,
+.colonna-form button {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.3rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+.colonna-form button {
+  margin-top: 1.2rem;
+  background-color: hsl(314, 100%, 95%);
+  color: #7d7878;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.colonna-form button:hover {
+  background-color: #ffa3d5;
+}
+
+#messaggio-modifica {
+  margin-top: 1rem;
+}
+
+.card-sala {
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .card-sala:hover {
+      background-color:#ffa3d5;
+      transform: scale(1.02);
+      box-shadow: 0 0 10px rgba(0,0,0,0.15);
+    }
+    .disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+   #popup-overlay {
+  position: fixed;
+  top: 200px; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+#modifica-sala {
+  color:  #7d7878;
+  background: hsl(314, 100%, 95%);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  max-width: 400px;
+  width: 90%;
+  position: relative;
+  transform: translateY(0); /* già centrato dal flex container */
+}
+
+#modifica-sala label {
+      display: block;
+      margin-top: 1rem;
+    }
+#modifica-sala input, #modifica-sala select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.3rem;
+    }
+
+.card-container {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin: 3rem auto;
+    }
+    .card-opera {
+      color: #7d7878;
+      background-color: hsla(314, 100%, 95%, 0.9);
+      padding: 2rem;
+      border-radius: 15px;
+      text-align: center;
+      width: 200px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .card-opera:hover {
+      background-color: #ffa3d5;
+      transform: scale(1.05);
+      box-shadow: 0 0 12px rgba(0, 0, 0, 0.15);
+    }
+    .card-opera h3 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+
+
+/* Contenitore laterale */
+.box-opere-laterali {
+  color: #7d7878;
+  position: absolute;
+  top: 100px;
+  right: 30px;
+  width: 500px; /* più largo per due colonne */
+  height: 600px;
+  background-color: hsla(314, 100%, 95%, 0.9);
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.grid-opere-fisse {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* due colonne */
+  gap: 1rem;
+}
+
+.opera-card {
+  text-align: center;
+}
+
+.opera-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+.colonna-form-autore label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+.colonna-form-autore input,
+.colonna-form-autore select,
+.colonna-form-autore button {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.3rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+.colonna-form-autore button {
+  margin-top: 1.2rem;
+  background-color: hsl(314, 100%, 95%);
+  color: #7d7878;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.colonna-form-autore button:hover {
+  background-color: #ffa3d5;
+}
+
+
+

@@ -29,8 +29,23 @@
   </section>
 
   <div class="paginazione-sale">
-    <button id="precedente" disabled>« Precedente</button>
+    <button id="precedente" class="disabled">« Precedente</button>
     <button id="successivo">Successivo »</button>
+  </div>
+
+  <div id="popup-overlay">
+    <div id="modifica-sala">
+      <h3>Modifica Sala</h3>
+      <form id="form-modifica-sala">
+        <input type="hidden" id="sala-id">
+        <label for="superficie">Superficie (m²):</label>
+        <input type="number" id="superficie" name="superficie" min="1" required>
+        <label for="tema">Tema:</label>
+        <select id="tema" name="tema" required></select>
+        <button type="submit">Salva modifiche</button>
+      </form>
+      <div id="messaggio-sala"></div>
+    </div>
   </div>
 </main>
 
@@ -43,6 +58,7 @@
   let tutteLeSale = [];
   let paginaCorrente = 1;
   const perPagina = 10;
+  let temi = [];
 
   $(document).ready(function () {
     $.getJSON("../../src/get_sale.php", function (data) {
@@ -50,14 +66,60 @@
       mostraPagina(1);
     });
 
+    $.getJSON("../../src/get_temi.php", function (data) {
+      temi = data;
+      temi.forEach(t => {
+        $('#tema').append(`<option value="${t.codice}">${t.descrizione}</option>`);
+      });
+    });
+
     $('#successivo').on('click', function () {
-      paginaCorrente++;
-      mostraPagina(paginaCorrente);
+      if (!$(this).hasClass('disabled')) {
+        paginaCorrente++;
+        mostraPagina(paginaCorrente);
+      }
     });
 
     $('#precedente').on('click', function () {
-      paginaCorrente--;
-      mostraPagina(paginaCorrente);
+      if (!$(this).hasClass('disabled')) {
+        paginaCorrente--;
+        mostraPagina(paginaCorrente);
+      }
+    });
+
+    $('#form-modifica-sala').on('submit', function (e) {
+      e.preventDefault();
+      const superficie = parseInt($('#superficie').val());
+      const tema = $('#tema').val();
+      const id = $('#sala-id').val();
+
+      if (isNaN(superficie) || superficie <= 0) {
+        $('#messaggio-sala').text("La superficie deve essere un numero positivo.");
+        return;
+      }
+
+      $.ajax({
+        url: '../../src/salva_modifica_sala.php',
+        type: 'POST',
+        data: { numero: id, superficie: superficie, tema: tema },
+        success: function (res) {
+  $('#messaggio-sala').text("✅ Modifica salvata con successo.");
+  setTimeout(() => {
+    $('#popup-overlay').hide();
+    location.reload();
+  }, 1200);
+},
+error: function (xhr) {
+  $('#messaggio-sala').text("❌ Errore durante il salvataggio: " + xhr.responseText);
+}
+      });
+    });
+
+    // Chiudi popup cliccando fuori
+    $('#popup-overlay').on('click', function (e) {
+      if (e.target.id === 'popup-overlay') {
+        $(this).hide();
+      }
     });
   });
 
@@ -75,17 +137,26 @@
     }
 
     salePagina.forEach(sala => {
-      contenitore.append(`
-        <div class="card-sala">
+      const card = $(`
+        <div class="card-sala" data-id="${sala.numero}" data-superficie="${sala.superficie}" data-tema="${sala.temaCodice}">
           <h3>${sala.nome}</h3>
           <p><strong>Superficie:</strong> ${sala.superficie} m²</p>
           <p><strong>Tema:</strong> ${sala.tema}</p>
         </div>
       `);
+
+      card.on('click', function () {
+        $('#sala-id').val(sala.numero);
+        $('#superficie').val(sala.superficie);
+        $('#tema').val(sala.temaCodice);
+        $('#popup-overlay').show();
+      });
+
+      contenitore.append(card);
     });
 
-    $('#precedente').prop('disabled', pagina === 1);
-    $('#successivo').prop('disabled', end >= tutteLeSale.length);
+    $('#precedente').toggleClass('disabled', pagina === 1);
+    $('#successivo').toggleClass('disabled', end >= tutteLeSale.length);
   }
 </script>
 </body>

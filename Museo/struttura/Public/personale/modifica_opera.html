@@ -6,10 +6,13 @@
   <title>Museo - Gestione Opere</title>
   <link rel="stylesheet" href="../style.css"/>
   <link rel="stylesheet" href="../tabella_opere.css"/>
+  
 </head>
 <body>
 <div class="logo-museo">
-  <img src="../../icon/logo.png" alt="Logo Museo" />
+  <a href="../dashboard_personale.html">
+    <img src="../../icon/logo.png" alt="Logo Museo" />
+  </a>
 </div>
 
 <header>
@@ -52,22 +55,27 @@
     </form>
   </aside>
 
-  <div class="risultati-opere">
-    <table class="tabella-opere">
-      <thead>
-        <tr>
-          <th>Titolo</th>
-          <th>Autore</th>
-          <th>Tipo</th>
-          <th>Anno Realizzazione</th>
-          <th>Anno Acquisto</th>
-          <th>Sala</th>
-        </tr>
-      </thead>
-      <tbody id="corpo-tabella-opere"></tbody>
-    </table>
-    <div id="paginazione" class="pagination-container"></div>
-    <div id="formModifica"></div>
+  <div class="contenitore-modifica">
+    <div class="colonna-tabella">
+      <table class="tabella-opere">
+        <thead>
+          <tr>
+            <th>Titolo</th>
+            <th>Autore</th>
+            <th>Tipo</th>
+            <th>Anno Realizzazione</th>
+            <th>Anno Acquisto</th>
+            <th>Sala</th>
+          </tr>
+        </thead>
+        <tbody id="corpo-tabella-opere"></tbody>
+      </table>
+      <div id="paginazione" class="pagination-container"></div>
+    </div>
+
+    <div id="formModifica" class="colonna-form">
+      <!-- Il form compare qui al click -->
+    </div>
   </div>
 </main>
 
@@ -121,9 +129,7 @@ $(document).ready(function () {
               </tr>
             `);
             row.on('click', function () {
-              const codice = $(this).data('id');
-              console.log("✅ Codice selezionato:", codice);
-              caricaOpera(codice);
+              caricaOpera(opera.codice);
             });
             tbody.append(row);
           });
@@ -179,22 +185,62 @@ $(document).ready(function () {
         <form id="modifica-form">
           <input type="hidden" name="codice" value="${opera.codice}">
           <label>Titolo: <input name="titolo" value="${titolo}" required></label>
-          <label>Anno Realizzazione: <input name="annoRealizzazione" type="number" value="${realizzazione}" required></label>
-          <label>Anno Acquisto: <input name="annoAcquisto" type="number" value="${acquisto}" required></label>
+          <label>Anno Realizzazione: <input name="annoRealizzazione" type="number" value="${realizzazione}" required min="1000" max="2025"></label>
+          <label>Anno Acquisto: <input name="annoAcquisto" type="number" value="${acquisto}" required min="1000" max="2025"></label>
           <label>Tipo:
             <select name="tipo" required>
               <option value="Quadro" ${tipo === "Quadro" ? "selected" : ""}>Quadro</option>
               <option value="Scultura" ${tipo === "Scultura" ? "selected" : ""}>Scultura</option>
             </select>
           </label>
-          <label>Sala Esposta: <input name="espostaInSala" type="number" value="${salaVal}"></label>
+          <label>Sala Esposta:
+            <select name="espostaInSala" id="selectSaleModifica">
+              <option value="">-- Nessuna --</option>
+            </select>
+          </label>
           <button type="submit">Salva Modifiche</button>
         </form>
         <div id="messaggio-modifica"></div>
       `);
 
+      $.getJSON("../../src/get_sale.php", function (saleList) {
+        saleList.forEach(function (sala) {
+          const selected = sala.numero == salaVal ? "selected" : "";
+          $('#selectSaleModifica').append(`<option value="${sala.numero}" ${selected}>${sala.nome}</option>`);
+        });
+      });
+
       $('#modifica-form').on('submit', function (e) {
         e.preventDefault();
+
+        const formData = new FormData(this);
+        const annoR = parseInt(formData.get("annoRealizzazione"));
+        const annoA = parseInt(formData.get("annoAcquisto"));
+        const sala = formData.get("espostaInSala");
+
+        if (isNaN(annoR) || annoR < 1000 || annoR > 2025) {
+          $('#messaggio-modifica').html(`<div class="messaggio errore">Anno di realizzazione non valido (1000–2025).</div>`);
+          return;
+        }
+
+        if (isNaN(annoA) || annoA < 1000 || annoA > 2025) {
+          $('#messaggio-modifica').html(`<div class="messaggio errore">Anno di acquisto non valido (1000–2025).</div>`);
+          return;
+        }
+
+        if (annoA < annoR) {
+          $('#messaggio-modifica').html(`<div class="messaggio errore">L'anno di acquisto non può essere precedente a quello di realizzazione.</div>`);
+          return;
+        }
+
+        if (sala !== "") {
+          const salaNum = parseInt(sala);
+          if (isNaN(salaNum) || salaNum < 1 || salaNum > 20) {
+            $('#messaggio-modifica').html(`<div class="messaggio errore">Numero sala non valido. Seleziona da 1 a 20 oppure lascia vuoto.</div>`);
+            return;
+          }
+        }
+
         $.ajax({
           url: '../../src/salva_modifica.php',
           type: 'POST',
@@ -216,16 +262,3 @@ $(document).ready(function () {
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-	 
-	 

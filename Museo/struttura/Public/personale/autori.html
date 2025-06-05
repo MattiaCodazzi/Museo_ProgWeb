@@ -64,7 +64,7 @@
     <div id="paginazione" class="pagination-container"></div>
   </div>
 
-  <div class="modifica-autore" id="modifica-autore">
+  <div class="colonna-form-autore" id="modifica-autore">
     <h2>Modifica Autore</h2>
     <form id="form-modifica-autore">
       <input type="hidden" id="codice" name="codice">
@@ -76,12 +76,12 @@
 
       <label for="dataNascita">Data di nascita:</label>
       <input type="date" id="dataNascita" name="dataNascita">
-	  
-	  <label for="tipo">Tipo:</label>
-	<select id="tipo" name="tipo">
-		<option value="vivo">vivo</option>
-		<option value="morto">morto</option>
-	</select>
+
+      <label for="tipo">Tipo:</label>
+      <select id="tipo" name="tipo">
+        <option value="vivo">vivo</option>
+        <option value="morto">morto</option>
+      </select>
 
       <label for="dataMorte">Data di morte:</label>
       <input type="date" id="dataMorte" name="dataMorte">
@@ -177,6 +177,15 @@ $(document).ready(function () {
 
   $('#form-modifica-autore').on('submit', function (e) {
     e.preventDefault();
+
+    const tipo = $('#tipo').val();
+    const dataMorte = $('#dataMorte').val();
+
+    if (dataMorte && tipo === 'vivo') {
+      alert("⚠️ Hai inserito una data di morte, ma il tipo è ancora impostato su 'vivo'. Per favore imposta 'morto'.");
+      return;
+    }
+
     $.ajax({
       url: "../../src/salva_modifica_autore.php",
       method: "POST",
