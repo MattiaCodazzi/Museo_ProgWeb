@@ -47,6 +47,13 @@ Tutte le operazioni sono gestite tramite **AJAX**, con comunicazione asincrona a
 
 ---
 
+## 🌐 Link al Sito Web
+
+Una volta pubblicato il sito, inserire qui il link:  
+👉 [https://pwproject.altervista.org/ProgettoParte1/Museo/struttura/public/dashboard_personale.html](https://pwproject.altervista.org/ProgettoParte1/Museo/struttura/public/dashboard_personale.html) 
+
+---
+
 ## 📂 Contenuti del Progetto
 
 - Tutti i file HTML, CSS, JS e PHP
