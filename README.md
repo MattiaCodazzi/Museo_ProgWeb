@@ -9,19 +9,9 @@ Il sistema consente l'inserimento, la modifica, la ricerca e l'esposizione virtu
 
 È disponibile una versione del progetto ospitata online su Altervista:
 
-👉 [https://pwproject.altervista.org/ProgettoParte1/Museo/struttura/public/main.html](https://pwproject.altervista.org/ProgettoParte1/Museo/struttura/public/main.html)
+👉 [https://pwproject.altervista.org/ProgettoParte1/Museo/struttura/public/dashboard_personale.html](https://pwproject.altervista.org/ProgettoParte1/Museo/struttura/public/dashboard_personale.html)
 
 Da questo link è possibile accedere all’interfaccia principale del sito, visitare tutte le pagine e testare direttamente le funzionalità implementate, incluse le operazioni CRUD sulle opere del museo.
-
-> ℹ️ **Nota importante:** per accedere alla **zona personale del museo**, è necessario effettuare il login con un **account appartenente al personale**.  
-> A fini di test, si assume che il personale disponga già di un account pre-registrato nel database.  
-> È quindi possibile utilizzare le seguenti credenziali di esempio:
-
-**_username:_** `mrossi`  
-**_password:_** `password1`<br><br><br><br>
-
-
-
 
 
 # Solo per sviluppo 
@@ -72,7 +62,7 @@ C:\xampp\htdocs\ProgettoParte1\
 
 ### 7. Avvia l’applicazione dal browser
 Esegui una delle seguenti URL:
-- [http://localhost/ProgettoParte1/Museo/struttura/public/main.html](http://localhost/ProgettoParte1/Museo/struttura/public/main.html)
+- [http://localhost/ProgettoParte1/Museo/struttura/public/dashboard_personale.html](http://localhost/ProgettoParte1/Museo/struttura/public/dashboard_personale.html)
 - [http://localhost/ProgettoParte1/Museo/aggiungi_opera.html](http://localhost/ProgettoParte1/Museo/aggiungi_opera.html)
 - [http://localhost/ProgettoParte1/Museo/cerca_opera.html](http://localhost/ProgettoParte1/Museo/cerca_opera.html)
 
