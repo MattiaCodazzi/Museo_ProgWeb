@@ -1,101 +1,67 @@
-# 📄 Documentazione del Progetto  
-## Museo Virtuale – Progetto di Programmazione Web
+# 📄 Documentazione – Progetto Museo (Prima Parte)
 
-### 🎯 Obiettivo del Progetto
+## 🔷 Obiettivo del Progetto
 
-Il progetto *Museo Virtuale* nasce con l’obiettivo di offrire un’interfaccia web semplice, intuitiva e funzionale, che permetta agli utenti di esplorare e consultare virtualmente le opere di un museo, fornendo una panoramica completa e accessibile prima di una visita fisica.
-
-L’interfaccia è progettata per facilitare la navigazione e l’interazione sia da parte del pubblico generico che del personale del museo, differenziando le funzionalità disponibili in base al tipo di utente autenticato.
+Il progetto consiste nella realizzazione di un sito web per la gestione delle opere di un museo. L’applicazione fa riferimento al database DB1 – Museo e implementa un’interfaccia coerente con il template grafico assegnato.  
+Il sito consente la visualizzazione e la gestione delle opere tramite operazioni CRUD.
 
 ---
 
-### 🧱 Tecnologie Utilizzate
+## 🖥️ Struttura del Sito
 
-Il progetto ha soddisfatto tutti i vincoli tecnologici previsti dal corso, facendo uso delle seguenti tecnologie:
+Il sito è composto da una singola sezione:
 
-| Tecnologia     | Utilizzo principale                           |
-|----------------|-----------------------------------------------|
-| **HTML**       | Struttura e markup delle pagine web           |
-| **CSS**        | Layout grafico e stile dell’interfaccia       |
-| **JavaScript** | Interazioni lato client, dinamismo dei contenuti |
-| **jQuery**     | Facilitazione delle chiamate AJAX             |
-| **AJAX**       | Comunicazione asincrona con il backend PHP    |
-| **PHP**        | Logica lato server, gestione dei dati e interazione con il database |
-| **MySQL**      | Gestione dati relazionali tramite phpMyAdmin su Altervista |
+ ### Sezione Amministratore
 
-Il database MySQL è stato implementato e gestito tramite **phpMyAdmin**, offerto dal servizio hosting Altervista.
+Questa sezione permette di eseguire operazioni CRUD sulle opere del museo.  
+Funzionalità principali:
 
----
+- Inserimento di nuove opere (form con campi validati).
+- Visualizzazione completa delle opere in una tabella.
+- Ricerca per titolo, autore, tipo e sala.
+- Modifica dei dati delle opere.
+- Eliminazione delle opere selezionate.
 
-### 🗂️ Struttura del Sito
-
-Il sito si compone di una serie di pagine collegate a un’unica pagina iniziale che funge da **login/registrazione**, punto di ingresso per l’intera applicazione. Da qui il flusso si biforca in due sezioni principali:
-
-#### 🔐 Sezione Personale (Privilegiata)
-
-Accessibile al personale interno del museo, il quale dispone già di un account. Dopo l'autenticazione, l’operatore può:
-
-- Inserire nuove opere (Create)
-- Visualizzare e cercare opere (Read)
-- Modificare informazioni (Update)
-- Rimuovere opere dal sistema (Delete)
-
-In altre parole, ha accesso **completo a tutte le funzionalità CRUD** (Create, Read, Update, Delete) previste dall’applicazione.
-
-#### 👤 Sezione Utente (Pubblica)
-
-Destinata a visitatori generici interessati a consultare il patrimonio museale. Gli utenti devono:
-
-- Registrarsi con i seguenti dati:
-  - Username
-  - Nome
-  - Cognome
-  - Password
-  - Email
-- Effettuare il login successivamente con le credenziali fornite
-
-Una volta autenticati, gli utenti **non hanno accesso alle funzionalità di modifica dei dati**. Possono esclusivamente:
-
-- Visualizzare le opere presenti
-- Effettuare ricerche in base a criteri specifici (autore, tipo, sala, ecc.)
-
-Questa separazione dei ruoli garantisce la sicurezza e l'integrità dei dati gestiti.
+Tutte le operazioni sono gestite tramite **AJAX**, con comunicazione asincrona al server PHP, che interagisce con il database.
 
 ---
 
-### 🔐 Gestione degli Accessi
+## 🧰 Tecnologie Utilizzate
 
-Il sistema implementa una **logica di autenticazione e autorizzazione**, basata su sessioni PHP, che differenzia i percorsi e le funzionalità accessibili in base al tipo di utente:
-
-- Al primo accesso, l'utente pubblico deve creare un account tramite il form di registrazione
-- Il personale accede tramite credenziali predefinite (caricate nel database)
-- Dopo l’autenticazione, viene rediretto alla sezione corrispondente (utente o personale)
-
----
-
-### 🔄 Interazione con il Database
-
-Le operazioni CRUD sono implementate tramite:
-
-- **PHP** lato server per la gestione delle richieste
-- **AJAX** e **jQuery** per l’invio asincrono dei dati (senza ricaricare la pagina)
-- **Query MySQL** per l’interazione con il database
-
-Sono previste validazioni lato client e lato server per garantire la correttezza e la consistenza dei dati.
+- **Frontend:** HTML, CSS, JavaScript, jQuery
+- **Backend:** PHP
+- **Comunicazione Client-Server:** AJAX + JSON
+- **Database:** MongoDB *(oppure MySQL in alternativa per compatibilità hosting)*
+- **Struttura Dati:** conforme al modello logico DB1 – Museo
 
 ---
 
-### 🌍 Versione Online
+## 🔄 Funzionalità Implementate
 
-È disponibile una versione online completamente funzionante del progetto, ospitata su Altervista:
+- ✅ Create: Inserimento opere
+- ✅ Read: Visualizzazione e ricerca opere
+- ✅ Update: Modifica opere
+- ✅ Delete: Eliminazione opere
+- ✅ Paginazione: per sale (10 per pagina) e temi (5 per pagina)
+- ✅ Interfaccia: conforme al template assegnato nel progetto
 
-👉 [https://pwproject.altervista.org/ProgettoParte1/Museo/struttura/public/main.html](https://pwproject.altervista.org/ProgettoParte1/Museo/struttura/public/main.html)
+---
 
-Da questo link è possibile accedere alla homepage dell'applicazione, esplorare tutte le sezioni del sito e provare tutte le funzionalità descritte, inclusa la registrazione utenti e la gestione CRUD delle opere.
+## 📂 Contenuti del Progetto
 
-> ℹ️ **Nota importante:** per accedere alla **zona personale del museo**, è necessario effettuare il login con un **account appartenente al personale**.  
-> A fini di test, si assume che il personale disponga già di un account pre-registrato nel database.  
-> È quindi possibile utilizzare le seguenti credenziali di esempio:
+- Tutti i file HTML, CSS, JS e PHP
+- File `.zip` contenente l’intero progetto
+- File .sql e .php per il popolamento del database
+- Repository GitHub con:
+  - Codice sorgente
+  - README
+  - Documentazione tecnica
+- Link al sito web
 
-**_username:_** `mrossi`  
-**_password:_** `password1`
+---
+
+## 📝 Note Aggiuntive
+
+- Tutti gli stili sono centralizzati alcuni file CSS.
+- I messaggi di errore e conferma sono visualizzati a schermo tramite riquadri colorati (verde per conferma, rosso per errore).
+- Il sito è responsive e adatto a diverse dimensioni di schermo.
